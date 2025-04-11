@@ -1,0 +1,6 @@
+product: android/app
+
+settings:
+  android:
+    namespace: io.anygogin31.pixivv
+    compileSdk: 34

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+            android:allowBackup="false"
+            android:dataExtractionRules="@null"
+            android:fullBackupContent="@null"
+            android:icon="@null"
+            android:label="@string/app_name"
+            android:memtagMode="async"
+            android:roundIcon="@null"
+            android:theme="@android:style/Theme.Material.NoActionBar"
+            tools:targetApi="31" />
+
+</manifest>

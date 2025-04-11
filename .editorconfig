@@ -1,0 +1,23 @@
+root = true
+
+[*]
+charset = utf-8
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.yaml]
+indent_size = 2
+
+[*.{kt, kts}]
+ktlint_standard_filename = disabled
+ktlint_standard_function-naming = disabled
+
+ktlint_standard_max-line-length = 120
+ktlint_standard_trailing-comma-on-call-site = enabled
+ktlint_standard_no-unused-imports = enabled
+ktlint_standard_import-ordering = enabled
+
+[**/build/generated/**]
+ktlint = disabled
