@@ -1,5 +1,11 @@
 product: ios/app
 
+dependencies:
+  - ../shared-entry
+
 settings:
+  compose:
+    version: 1.6.10
+    enabled: true
   ios:
     teamId: <team ID here>

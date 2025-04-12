@@ -1,6 +1,14 @@
 product: android/app
 
+dependencies:
+  - ../shared-entry
+  - $libs.androidx.activity.compose
+  - $libs.koin.android
+
 settings:
   android:
     namespace: io.anygogin31.pixivv
     compileSdk: 34
+  compose:
+    version: 1.6.10
+    enabled: true

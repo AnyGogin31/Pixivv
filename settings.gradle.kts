@@ -16,3 +16,5 @@ plugins {
 include(":app-android")
 include(":app-ios")
 include(":app-jvm")
+
+include(":shared-entry")

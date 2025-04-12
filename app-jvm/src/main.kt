@@ -1,1 +1,0 @@
-public fun main() = Unit
