@@ -1,8 +1,12 @@
 [versions]
-# ...
+
+# Koin
+koin = "4.0.4"
 
 [plugins]
 # ...
 
 [libraries]
-# ...
+
+# Koin
+koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koin" }
