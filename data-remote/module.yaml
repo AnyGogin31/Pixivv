@@ -1,0 +1,15 @@
+product:
+  type: lib
+  platforms: [ jvm, android, iosArm64, iosSimulatorArm64, iosX64 ]
+
+dependencies:
+  - $libs.ktor.client.core
+
+dependencies@android:
+  - $libs.ktor.client.engine.okhttp
+
+dependencies@jvm:
+  - $libs.ktor.client.engine.jetty
+
+dependencies@ios:
+  - $libs.ktor.client.engine.darwin

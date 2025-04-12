@@ -6,6 +6,9 @@ androidx-activity-compose = "1.10.0"
 # Koin
 koin = "4.0.4"
 
+# Ktor
+ktor = "3.1.2"
+
 [plugins]
 # ...
 
@@ -17,3 +20,9 @@ androidx-activity-compose = { group = "androidx.activity", name = "activity-comp
 # Koin
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koin" }
+
+# Ktor
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-engine-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-engine-darwin = { group = "io.ktor", name = "ktor-client-darwin", version.ref = "ktor" }
+ktor-client-engine-jetty = { group = "io.ktor", name = "ktor-client-jetty", version.ref = "ktor" }
