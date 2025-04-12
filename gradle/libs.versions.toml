@@ -1,5 +1,8 @@
 [versions]
 
+# AndroidX
+androidx-activity-compose = "1.10.0"
+
 # Koin
 koin = "4.0.4"
 
@@ -8,5 +11,9 @@ koin = "4.0.4"
 
 [libraries]
 
+# AndroidX
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx-activity-compose" }
+
 # Koin
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koin" }
