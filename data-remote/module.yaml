@@ -5,6 +5,7 @@ product:
 dependencies:
   - $libs.kotlinx.datetime
   - $libs.ktor.client.core
+  - $libs.ktor.client.resources
   - $libs.okio
 
 dependencies@android:
@@ -15,3 +16,7 @@ dependencies@jvm:
 
 dependencies@ios:
   - $libs.ktor.client.engine.darwin
+
+settings:
+  kotlin:
+    serialization: enabled
