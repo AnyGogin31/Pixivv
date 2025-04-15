@@ -17,6 +17,8 @@ include(":app-android")
 include(":app-ios")
 include(":app-jvm")
 
+include(":core-brotli")
+
 include(":data-remote")
 
 include(":shared-entry")
