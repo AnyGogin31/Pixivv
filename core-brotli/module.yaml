@@ -1,0 +1,7 @@
+product:
+  type: lib
+  platforms: [ jvm, android ]
+
+dependencies:
+  - $libs.brotli
+  - $libs.ktor.client.core

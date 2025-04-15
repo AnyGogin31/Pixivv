@@ -5,13 +5,16 @@ product:
 dependencies:
   - $libs.kotlinx.datetime
   - $libs.ktor.client.core
+  - $libs.ktor.client.encoding
   - $libs.ktor.client.resources
   - $libs.okio
 
 dependencies@android:
+  - ../core-brotli
   - $libs.ktor.client.engine.okhttp
 
 dependencies@jvm:
+  - ../core-brotli
   - $libs.ktor.client.engine.jetty
 
 dependencies@ios:
