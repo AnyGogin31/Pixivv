@@ -9,7 +9,7 @@ public interface RemoteClient {
 }
 
 internal suspend inline fun <reified T : Any> RemoteClient.request(
-    crossinline action: HttpClient.() -> HttpResponse,
+    crossinline action: suspend HttpClient.() -> HttpResponse,
 ): Result<T> {
     return runCatching {
         client.action().body<T>()

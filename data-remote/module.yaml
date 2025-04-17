@@ -9,6 +9,7 @@ dependencies:
   - $libs.ktor.client.core
   - $libs.ktor.client.encoding
   - $libs.ktor.client.resources
+  - $libs.ktor.serialization.json
   - $libs.okio
 
 dependencies@android:
@@ -24,4 +25,4 @@ dependencies@ios:
 
 settings:
   kotlin:
-    serialization: enabled
+    serialization: json
