@@ -3,10 +3,13 @@ product:
   platforms: [ jvm, android, iosArm64, iosSimulatorArm64, iosX64 ]
 
 dependencies:
+  - ../core-storage
   - $libs.kotlinx.datetime
+  - $libs.ktor.client.auth
   - $libs.ktor.client.core
   - $libs.ktor.client.encoding
   - $libs.ktor.client.resources
+  - $libs.ktor.serialization.json
   - $libs.okio
 
 dependencies@android:
@@ -22,4 +25,4 @@ dependencies@ios:
 
 settings:
   kotlin:
-    serialization: enabled
+    serialization: json
