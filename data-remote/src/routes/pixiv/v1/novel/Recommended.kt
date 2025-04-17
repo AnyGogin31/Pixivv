@@ -1,4 +1,4 @@
-package io.anygogin31.pixivv.data.remote.routes.v1.novel
+package io.anygogin31.pixivv.data.remote.routes.pixiv.v1.novel
 
 import io.anygogin31.pixivv.data.remote.routes.V1
 import io.ktor.resources.Resource
