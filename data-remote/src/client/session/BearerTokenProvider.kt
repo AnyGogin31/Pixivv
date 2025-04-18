@@ -44,7 +44,10 @@ internal object BearerTokenProvider : KoinComponent {
                     formParameters = parametersOf(
                         RefreshTokenRequest.fromRefreshToken(refreshToken),
                     )
-                ).body()
+                ) {
+                    with(params) { markAsRefreshTokenRequest() }
+                }
+                .body()
 
             sessionKeyValueStorage.set(ACCESS_TOKEN_KEY, authResponse.accessToken)
             sessionKeyValueStorage.set(REFRESH_TOKEN_KEY, authResponse.refreshToken)
