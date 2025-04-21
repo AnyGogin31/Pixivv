@@ -1,5 +1,6 @@
 package io.anygogin31.pixivv.data.remote.client.plugins
 
+import io.anygogin31.pixivv.core.remote.constants.HASH_SECRET
 import io.ktor.client.plugins.api.ClientPlugin
 import io.ktor.client.plugins.api.createClientPlugin
 import io.ktor.client.request.HttpRequestBuilder
@@ -42,5 +43,3 @@ internal val XClientHeadersPlugin: ClientPlugin<Unit> =
             request.header(HttpHeaders.XClientTime, formattedTime)
         }
     }
-
-private const val HASH_SECRET: String = "28c1fdd170a5204386cb1313c7077b34f83e4aaf4aa829ce78c231e05b0bae2c"

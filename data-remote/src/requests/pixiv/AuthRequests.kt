@@ -1,5 +1,7 @@
 package io.anygogin31.pixivv.data.remote.requests.pixiv
 
+import io.anygogin31.pixivv.core.remote.constants.CLIENT_ID
+import io.anygogin31.pixivv.core.remote.constants.CLIENT_SECRET
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -24,6 +26,3 @@ public data class RefreshTokenRequest(
         }
     }
 }
-
-private const val CLIENT_ID: String = "MOBrBDS8blbauoSck0ZfDbtuzpyT"
-private const val CLIENT_SECRET: String = "lsACyCD94FhDUtGTXi3QzcFE2uU1hqtDaKeqrdwj"

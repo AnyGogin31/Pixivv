@@ -4,6 +4,8 @@ product:
 
 dependencies:
   - ../core-remote-client
+  - ../core-remote-constants
+  - ../core-remote-utils
   - ../core-storage
   - $libs.kotlinx.datetime
   - $libs.ktor.client.auth
