@@ -3,11 +3,12 @@ product:
   platforms: [ jvm, android, iosArm64, iosSimulatorArm64, iosX64 ]
 
 dependencies:
+  - ../core-remote-brotli
   - ../core-remote-client
   - ../core-remote-constants
+  - ../core-remote-plugins
   - ../core-remote-utils
   - ../core-storage
-  - $libs.kotlinx.datetime
   - $libs.ktor.client.auth
   - $libs.ktor.client.core
   - $libs.ktor.client.content.negotiation
@@ -16,13 +17,6 @@ dependencies:
   - $libs.ktor.client.resources
   - $libs.ktor.serialization.json
   - $libs.logback
-  - $libs.okio
-
-dependencies@android:
-  - ../core-brotli
-
-dependencies@jvm:
-  - ../core-brotli
 
 settings:
   android:

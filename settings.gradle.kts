@@ -17,10 +17,11 @@ include(":app-android")
 include(":app-ios")
 include(":app-jvm")
 
-include(":core-brotli")
+include(":core-remote-brotli")
 include(":core-remote-client")
 include(":core-remote-constants")
 include(":core-remote-engine")
+include(":core-remote-plugins")
 include(":core-remote-utils")
 include(":core-storage")
 

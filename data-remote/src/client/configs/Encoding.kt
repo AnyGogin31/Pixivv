@@ -1,6 +1,6 @@
 package io.anygogin31.pixivv.data.remote.client.configs
 
-import io.anygogin31.pixivv.data.remote.client.encoding.brotli
+import io.anygogin31.pixivv.core.remote.brotli.brotli
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.plugins.compression.ContentEncoding
 
