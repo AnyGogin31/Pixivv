@@ -16,6 +16,9 @@ kotlinx-datetime = "0.6.2"
 # Ktor
 ktor = "3.1.2"
 
+# Logback
+logback = "1.5.18"
+
 # Okio
 okio = "3.11.0"
 
@@ -43,7 +46,9 @@ kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime",
 # Ktor
 ktor-client-auth = { group = "io.ktor", name = "ktor-client-auth", version.ref = "ktor" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-encoding = { group = "io.ktor", name = "ktor-client-encoding", version.ref = "ktor" }
+ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
 ktor-client-resources = { group = "io.ktor", name = "ktor-client-resources", version.ref = "ktor" }
 
 ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
@@ -51,6 +56,9 @@ ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlin
 ktor-client-engine-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-engine-darwin = { group = "io.ktor", name = "ktor-client-darwin", version.ref = "ktor" }
 ktor-client-engine-jetty = { group = "io.ktor", name = "ktor-client-jetty", version.ref = "ktor" }
+
+# Logback
+logback = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
 
 # Okio
 okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
