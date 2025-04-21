@@ -18,6 +18,7 @@ include(":app-ios")
 include(":app-jvm")
 
 include(":core-remote-brotli")
+include(":core-remote-configs")
 include(":core-remote-client")
 include(":core-remote-constants")
 include(":core-remote-engine")
