@@ -1,3 +1,0 @@
-package io.anygogin31.pixivv.data.remote
-
-internal const val PIXIV_BASE_URL: String = "https://app-api.pixiv.net/"

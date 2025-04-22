@@ -1,0 +1,18 @@
+product:
+  type: lib
+  platforms: [ jvm, android, iosArm64, iosSimulatorArm64, iosX64 ]
+
+dependencies:
+  - ../core-remote-brotli
+  - ../core-remote-plugins
+  - $libs.ktor.client.core
+  - $libs.ktor.client.content.negotiation
+  - $libs.ktor.client.encoding
+  - $libs.ktor.client.logging
+  - $libs.ktor.client.resources
+  - $libs.ktor.serialization.json
+  - $libs.logback
+
+settings:
+  android:
+    namespace: io.anygogin31.pixivv.core.remote.configs

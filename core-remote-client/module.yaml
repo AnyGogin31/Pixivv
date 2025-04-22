@@ -1,0 +1,11 @@
+product:
+  type: lib
+  platforms: [ jvm, android, iosArm64, iosSimulatorArm64, iosX64 ]
+
+dependencies:
+  - ../core-remote-engine
+  - $libs.ktor.client.core
+
+settings:
+  android:
+    namespace: io.anygogin31.pixivv.core.remote.client
