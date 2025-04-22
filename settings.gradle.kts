@@ -26,7 +26,10 @@ include(":core-remote-engine")
 include(":core-remote-plugins")
 include(":core-remote-utils")
 include(":core-storage")
+include(":core-theme")
 
 include(":data-remote")
+
+include(":feature-desingsystem")
 
 include(":shared-entry")
