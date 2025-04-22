@@ -32,4 +32,5 @@ include(":data-remote")
 
 include(":feature-desingsystem")
 
+include(":shared-di")
 include(":shared-entry")

@@ -1,6 +1,7 @@
 product: android/app
 
 dependencies:
+  - ../shared-di
   - ../shared-entry
   - $libs.androidx.activity.compose
   - $libs.koin.android
