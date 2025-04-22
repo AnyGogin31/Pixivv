@@ -2,7 +2,7 @@ package io.anygogin31.pixivv.core.storage.di
 
 import io.anygogin31.pixivv.core.storage.PersistedKeyValueStorage
 import io.anygogin31.pixivv.core.storage.domain.PixivvKeyValueStorage
-import io.anygogin31.pixivv.core.storage.domain.SessionKeyValueStorage
+import io.anygogin31.pixivv.core.storage.domain.SessionPixivKeyValueStorage
 import io.anygogin31.pixivv.core.storage.provider.DataStoreProvider
 import org.koin.core.module.Module
 import org.koin.core.parameter.parametersOf
@@ -26,7 +26,7 @@ public val CoreStorageModule: Module =
         }
 
         single {
-            SessionKeyValueStorage { name: String ->
+            SessionPixivKeyValueStorage { name: String ->
                 get<PersistedKeyValueStorage> { parametersOf(name) }
             }
         }

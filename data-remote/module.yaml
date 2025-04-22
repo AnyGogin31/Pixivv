@@ -3,10 +3,12 @@ product:
   platforms: [ jvm, android, iosArm64, iosSimulatorArm64, iosX64 ]
 
 dependencies:
+  - ../core-remote-auth
   - ../core-remote-client
   - ../core-remote-configs
   - ../core-remote-constants
   - ../core-remote-utils
+  - $libs.ktor.client.auth
   - $libs.ktor.client.core
   - $libs.ktor.client.resources
 

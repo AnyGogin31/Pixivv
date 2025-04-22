@@ -1,4 +1,4 @@
-package io.anygogin31.pixivv.data.remote.clients
+package io.anygogin31.pixivv.data.remote.clients.pixiv
 
 import io.anygogin31.pixivv.core.remote.client.ApiClient
 import io.anygogin31.pixivv.core.remote.client.apiClient
@@ -22,6 +22,7 @@ private fun usePixivConfigs(config: HttpClientConfig<*>) {
         configureDefault(PIXIV_API_URL)
         configureEncoding()
         configureLogging()
+        configurePixivAuth()
         configureResources()
         configureRetry()
         configureXClient()
