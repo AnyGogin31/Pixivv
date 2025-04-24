@@ -4,6 +4,7 @@ product:
 
 dependencies:
   - ../core-storage
+  - $libs.androidx.datastore.preferences.core
   - $libs.koin.core
   - $libs.ktor.client.auth
   - $libs.ktor.client.core
