@@ -27,6 +27,7 @@ include(":core-remote-plugins")
 include(":core-remote-utils")
 include(":core-storage")
 include(":core-theme")
+include(":core-usecase")
 
 include(":data-remote")
 
