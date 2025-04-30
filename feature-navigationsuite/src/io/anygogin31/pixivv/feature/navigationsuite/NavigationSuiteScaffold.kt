@@ -42,8 +42,11 @@ import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffo
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScope
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.window.core.layout.WindowHeightSizeClass
+import androidx.window.core.layout.WindowWidthSizeClass
 import io.anygogin31.pixivv.feature.navigationsuite.utils.WindowAdaptiveInfoDefault
 
 private val NoWindowInsets: WindowInsets = WindowInsets(0, 0, 0, 0)
@@ -58,7 +61,30 @@ public fun NavigationSuiteScaffold(
     content: @Composable () -> Unit,
 ) {
     val adaptiveInfo: WindowAdaptiveInfo = WindowAdaptiveInfoDefault
+
     val layoutType: NavigationSuiteType = NavigationSuiteScaffoldDefaults.calculateFromAdaptiveInfo(adaptiveInfo)
+
+    val contentPosition = when (adaptiveInfo.windowSizeClass.windowHeightSizeClass) {
+        WindowHeightSizeClass.COMPACT -> NavigationContentPosition.TOP
+        WindowHeightSizeClass.MEDIUM, WindowHeightSizeClass.EXPANDED -> NavigationContentPosition.CENTER
+
+        else -> NavigationContentPosition.TOP
+    }
+
+    val contentType = when (adaptiveInfo.windowSizeClass.windowWidthSizeClass) {
+        WindowWidthSizeClass.COMPACT -> NavigationContentType.SINGLE_PANE
+        WindowWidthSizeClass.MEDIUM -> NavigationContentType.SINGLE_PANE
+        WindowWidthSizeClass.EXPANDED -> NavigationContentType.DUAL_PANE
+
+        else -> NavigationContentType.SINGLE_PANE
+    }
+
+    val contentScope: NavigationContentScope = NavigationContentScopeImpl(
+        contentPosition = contentPosition,
+        contentType = contentType,
+        layoutType = layoutType,
+        windowSizeClass = adaptiveInfo.windowSizeClass,
+    )
 
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -75,23 +101,27 @@ public fun NavigationSuiteScaffold(
             },
             layoutType = layoutType,
             content = {
-                Box(
-                    modifier = Modifier.consumeWindowInsets(
-                        when (layoutType) {
-                            NavigationSuiteType.NavigationBar ->
-                                NavigationBarDefaults.windowInsets.only(WindowInsetsSides.Bottom)
-
-                            NavigationSuiteType.NavigationRail ->
-                                NavigationRailDefaults.windowInsets.only(WindowInsetsSides.Start)
-
-                            NavigationSuiteType.NavigationDrawer ->
-                                DrawerDefaults.windowInsets.only(WindowInsetsSides.Start)
-
-                            else -> NoWindowInsets
-                        }
-                    ),
+                CompositionLocalProvider(
+                    LocalNavigationContentScope provides contentScope,
                 ) {
-                    content()
+                    Box(
+                        modifier = Modifier.consumeWindowInsets(
+                            when (layoutType) {
+                                NavigationSuiteType.NavigationBar ->
+                                    NavigationBarDefaults.windowInsets.only(WindowInsetsSides.Bottom)
+
+                                NavigationSuiteType.NavigationRail ->
+                                    NavigationRailDefaults.windowInsets.only(WindowInsetsSides.Start)
+
+                                NavigationSuiteType.NavigationDrawer ->
+                                    DrawerDefaults.windowInsets.only(WindowInsetsSides.Start)
+
+                                else -> NoWindowInsets
+                            }
+                        ),
+                    ) {
+                        content()
+                    }
                 }
             },
         )
