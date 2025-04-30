@@ -1,0 +1,17 @@
+product:
+  type: lib
+  platforms: [ jvm, android, iosArm64, iosSimulatorArm64, iosX64 ]
+
+dependencies:
+  - $compose.foundation
+  - $compose.material3
+  - $compose.runtime
+  - $libs.compose.adaptive
+  - $libs.compose.adaptive.navigation
+
+settings:
+  android:
+    namespace: io.anygogin31.pixivv.feature.navigationsuite
+  compose:
+    version: 1.6.10
+    enabled: true
