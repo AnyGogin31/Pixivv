@@ -43,6 +43,7 @@ internal class NavigationContentScopeImpl(
     override val windowSizeClass: WindowSizeClass,
 ) : NavigationContentScope
 
-public val LocalNavigationContentScope: ProvidableCompositionLocal<NavigationContentScope> = compositionLocalOf {
-    error("NavigationContentScope is not provided. Please ensure you are wrapping your composables with a provider.")
-}
+public val LocalNavigationContentScope: ProvidableCompositionLocal<NavigationContentScope> =
+    compositionLocalOf {
+        error("NavigationContentScope is not provided. Please ensure you are wrapping your composables with a provider.")
+    }

@@ -45,9 +45,7 @@ public fun apiClient(config: ClientConfig = {}): ApiClient {
     }
 }
 
-public suspend inline fun <reified T : Any> ApiClient.request(
-    crossinline block: ClientRequest,
-): Result<T> {
+public suspend inline fun <reified T : Any> ApiClient.request(crossinline block: ClientRequest): Result<T> {
     return runCatching {
         client.block().body<T>()
     }

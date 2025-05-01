@@ -32,7 +32,11 @@ public interface AuthProvider
 
 public interface BearerAuthProvider : AuthProvider {
     public suspend fun loadTokens(): Result<BearerTokens>
-    public suspend fun saveTokens(accessToken: String, refreshToken: String): Result<Unit>
+
+    public suspend fun saveTokens(
+        accessToken: String,
+        refreshToken: String,
+    ): Result<Unit>
 }
 
 public fun AuthProvider.sendWithoutRequest(request: HttpRequestBuilder): Boolean {
