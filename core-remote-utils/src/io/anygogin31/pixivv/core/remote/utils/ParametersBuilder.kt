@@ -32,9 +32,10 @@ import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.encodeToJsonElement
 
-public val defaultJson: Json = Json {
-    encodeDefaults = true
-}
+public val defaultJson: Json =
+    Json {
+        encodeDefaults = true
+    }
 
 public inline fun <reified T : Any> ParametersBuilder.append(value: T) {
     val json: Json = defaultJson

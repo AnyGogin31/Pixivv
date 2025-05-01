@@ -58,4 +58,7 @@ internal fun brotliEncode(): Nothing {
     error("BrotliOutputStream not available (https://github.com/google/brotli/issues/715)")
 }
 
-internal expect fun brotliDecode(source: ByteReadChannel, coroutineContext: CoroutineContext): ByteReadChannel
+internal expect fun brotliDecode(
+    source: ByteReadChannel,
+    coroutineContext: CoroutineContext,
+): ByteReadChannel

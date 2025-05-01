@@ -42,9 +42,10 @@ import okio.ByteString.Companion.encodeUtf8
 private const val DATE_TIME_PATTERN: String = "uuuu-MM-dd'T'HH:mm:ss'Z'"
 
 @OptIn(FormatStringsInDatetimeFormats::class)
-private val UtcFormatter: DateTimeFormat<LocalDateTime> = LocalDateTime.Format {
-    byUnicodePattern(DATE_TIME_PATTERN)
-}
+private val UtcFormatter: DateTimeFormat<LocalDateTime> =
+    LocalDateTime.Format {
+        byUnicodePattern(DATE_TIME_PATTERN)
+    }
 
 private const val HEADER_X_CLIENT_HASH: String = "X-Client-Hash"
 private const val HEADER_X_CLIENT_TIME: String = "X-Client-Time"
@@ -56,10 +57,11 @@ public val XClientHeaders: ClientPlugin<Unit> =
             val utcNow: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.UTC)
             val formattedTime: String = utcNow.format(UtcFormatter)
 
-            val hash: String = (formattedTime + HASH_SECRET)
-                .encodeUtf8()
-                .md5()
-                .hex()
+            val hash: String =
+                (formattedTime + HASH_SECRET)
+                    .encodeUtf8()
+                    .md5()
+                    .hex()
 
             request.header(HEADER_X_CLIENT_HASH, hash)
             request.header(HEADER_X_CLIENT_TIME, formattedTime)

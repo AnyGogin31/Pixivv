@@ -85,34 +85,40 @@ public fun TwoPane(
         val secondMeasurable: Measurable = placeables[slotIdSecond]!!
 
         layout(constraints.maxWidth, constraints.maxHeight) {
-            val layoutCoordinates: LayoutCoordinates = checkNotNull(coordinates) {
-                "TwoPane does not support the use of alignment lines!"
-            }
+            val layoutCoordinates: LayoutCoordinates =
+                checkNotNull(coordinates) {
+                    "TwoPane does not support the use of alignment lines!"
+                }
 
-            val splitX: Float = layoutCoordinates.size.width * when (layoutDirection) {
-                LayoutDirection.Ltr -> animatedSplitFraction
-                LayoutDirection.Rtl -> 1 - animatedSplitFraction
-            }
+            val splitX: Float =
+                layoutCoordinates.size.width *
+                    when (layoutDirection) {
+                        LayoutDirection.Ltr -> animatedSplitFraction
+                        LayoutDirection.Rtl -> 1 - animatedSplitFraction
+                    }
             val dividerWidthPixel: Float = dividerWidth.toPx()
 
-            val bounds = Rect(
-                left = splitX - dividerWidthPixel / 2f,
-                top = 0f,
-                right = splitX + dividerWidthPixel / 2f,
-                bottom = layoutCoordinates.size.height.toFloat(),
-            )
+            val bounds =
+                Rect(
+                    left = splitX - dividerWidthPixel / 2f,
+                    top = 0f,
+                    right = splitX + dividerWidthPixel / 2f,
+                    bottom = layoutCoordinates.size.height.toFloat(),
+                )
 
             val leftBounds: Int = constraints.constrainWidth(bounds.left.roundToInt())
             val rightBounds: Int = constraints.constrainWidth(bounds.right.roundToInt())
 
-            val firstConstraints: Constraints = constraints.copy(
-                minWidth = leftBounds,
-                maxWidth = leftBounds,
-            )
-            val secondConstraints: Constraints = constraints.copy(
-                minWidth = constraints.maxWidth - rightBounds,
-                maxWidth = constraints.maxWidth - rightBounds,
-            )
+            val firstConstraints: Constraints =
+                constraints.copy(
+                    minWidth = leftBounds,
+                    maxWidth = leftBounds,
+                )
+            val secondConstraints: Constraints =
+                constraints.copy(
+                    minWidth = constraints.maxWidth - rightBounds,
+                    maxWidth = constraints.maxWidth - rightBounds,
+                )
 
             val firstPlaceable: Placeable = firstMeasurable.measure(constraints.constrain(firstConstraints))
             val secondPlaceable: Placeable = secondMeasurable.measure(constraints.constrain(secondConstraints))

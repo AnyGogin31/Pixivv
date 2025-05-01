@@ -48,22 +48,26 @@ internal fun HttpClientConfig<*>.configurePixivAuth() {
                 pixivAuthProvider.loadTokens().getOrNull()
             }
             refreshTokens {
-                val refreshToken: String = this.oldTokens?.refreshToken
-                    ?: return@refreshTokens null
+                val refreshToken: String =
+                    this.oldTokens?.refreshToken
+                        ?: return@refreshTokens null
 
-                val idpUrls: IdpUrlsResponse = PixivApiClient.getIdpUrls().getOrNull()
-                    ?: return@refreshTokens null
+                val idpUrls: IdpUrlsResponse =
+                    PixivApiClient.getIdpUrls().getOrNull()
+                        ?: return@refreshTokens null
 
-                val authResponse: AuthResponse = this.client
-                    .submitForm(
-                        url = idpUrls.authToken,
-                        formParameters = Parameters.build {
-                            append(RefreshTokenRequest.fromRefreshToken(refreshToken))
+                val authResponse: AuthResponse =
+                    this.client
+                        .submitForm(
+                            url = idpUrls.authToken,
+                            formParameters =
+                                Parameters.build {
+                                    append(RefreshTokenRequest.fromRefreshToken(refreshToken))
+                                },
+                        ) {
+                            markAsRefreshTokenRequest()
                         }
-                    ) {
-                        markAsRefreshTokenRequest()
-                    }
-                    .body()
+                        .body()
 
                 pixivAuthProvider
                     .saveTokens(

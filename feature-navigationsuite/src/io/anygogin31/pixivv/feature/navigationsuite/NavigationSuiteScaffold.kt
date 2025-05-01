@@ -64,27 +64,30 @@ public fun NavigationSuiteScaffold(
 
     val layoutType: NavigationSuiteType = NavigationSuiteScaffoldDefaults.calculateFromAdaptiveInfo(adaptiveInfo)
 
-    val contentPosition = when (adaptiveInfo.windowSizeClass.windowHeightSizeClass) {
-        WindowHeightSizeClass.COMPACT -> NavigationContentPosition.TOP
-        WindowHeightSizeClass.MEDIUM, WindowHeightSizeClass.EXPANDED -> NavigationContentPosition.CENTER
+    val contentPosition =
+        when (adaptiveInfo.windowSizeClass.windowHeightSizeClass) {
+            WindowHeightSizeClass.COMPACT -> NavigationContentPosition.TOP
+            WindowHeightSizeClass.MEDIUM, WindowHeightSizeClass.EXPANDED -> NavigationContentPosition.CENTER
 
-        else -> NavigationContentPosition.TOP
-    }
+            else -> NavigationContentPosition.TOP
+        }
 
-    val contentType = when (adaptiveInfo.windowSizeClass.windowWidthSizeClass) {
-        WindowWidthSizeClass.COMPACT -> NavigationContentType.SINGLE_PANE
-        WindowWidthSizeClass.MEDIUM -> NavigationContentType.SINGLE_PANE
-        WindowWidthSizeClass.EXPANDED -> NavigationContentType.DUAL_PANE
+    val contentType =
+        when (adaptiveInfo.windowSizeClass.windowWidthSizeClass) {
+            WindowWidthSizeClass.COMPACT -> NavigationContentType.SINGLE_PANE
+            WindowWidthSizeClass.MEDIUM -> NavigationContentType.SINGLE_PANE
+            WindowWidthSizeClass.EXPANDED -> NavigationContentType.DUAL_PANE
 
-        else -> NavigationContentType.SINGLE_PANE
-    }
+            else -> NavigationContentType.SINGLE_PANE
+        }
 
-    val contentScope: NavigationContentScope = NavigationContentScopeImpl(
-        contentPosition = contentPosition,
-        contentType = contentType,
-        layoutType = layoutType,
-        windowSizeClass = adaptiveInfo.windowSizeClass,
-    )
+    val contentScope: NavigationContentScope =
+        NavigationContentScopeImpl(
+            contentPosition = contentPosition,
+            contentType = contentType,
+            layoutType = layoutType,
+            windowSizeClass = adaptiveInfo.windowSizeClass,
+        )
 
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -105,20 +108,21 @@ public fun NavigationSuiteScaffold(
                     LocalNavigationContentScope provides contentScope,
                 ) {
                     Box(
-                        modifier = Modifier.consumeWindowInsets(
-                            when (layoutType) {
-                                NavigationSuiteType.NavigationBar ->
-                                    NavigationBarDefaults.windowInsets.only(WindowInsetsSides.Bottom)
+                        modifier =
+                            Modifier.consumeWindowInsets(
+                                when (layoutType) {
+                                    NavigationSuiteType.NavigationBar ->
+                                        NavigationBarDefaults.windowInsets.only(WindowInsetsSides.Bottom)
 
-                                NavigationSuiteType.NavigationRail ->
-                                    NavigationRailDefaults.windowInsets.only(WindowInsetsSides.Start)
+                                    NavigationSuiteType.NavigationRail ->
+                                        NavigationRailDefaults.windowInsets.only(WindowInsetsSides.Start)
 
-                                NavigationSuiteType.NavigationDrawer ->
-                                    DrawerDefaults.windowInsets.only(WindowInsetsSides.Start)
+                                    NavigationSuiteType.NavigationDrawer ->
+                                        DrawerDefaults.windowInsets.only(WindowInsetsSides.Start)
 
-                                else -> NoWindowInsets
-                            }
-                        ),
+                                    else -> NoWindowInsets
+                                },
+                            ),
                     ) {
                         content()
                     }

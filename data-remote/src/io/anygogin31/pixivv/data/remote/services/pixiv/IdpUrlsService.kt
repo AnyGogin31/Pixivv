@@ -36,11 +36,12 @@ private var cachedIdpUrls: IdpUrlsResponse? = null
 internal suspend fun PixivApiClient.getIdpUrls(): Result<IdpUrlsResponse> {
     cachedIdpUrls?.let { return Result.success(it) }
 
-    val request: Result<IdpUrlsResponse> = request {
-        get(IdpUrls) {
-            attributes.put(SkipAuth, Unit)
+    val request: Result<IdpUrlsResponse> =
+        request {
+            get(IdpUrls) {
+                attributes.put(SkipAuth, Unit)
+            }
         }
-    }
 
     return request.onSuccess { cachedIdpUrls = it }
 }
