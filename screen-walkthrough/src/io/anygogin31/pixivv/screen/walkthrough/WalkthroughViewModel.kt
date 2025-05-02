@@ -22,16 +22,22 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.entry
+package io.anygogin31.pixivv.screen.walkthrough
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import io.anygogin31.pixivv.feature.desingsystem.PixivvTheme
-import io.anygogin31.pixivv.screen.walkthrough.WalkthroughRoot
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 
-@Composable
-internal fun PixivvEntryView(modifier: Modifier = Modifier) {
-    PixivvTheme {
-        WalkthroughRoot(modifier)
-    }
+public class WalkthroughViewModel : ViewModel() {
+    private val _state = MutableStateFlow(WalkthroughState)
+    public val state: StateFlow<WalkthroughState> =
+        _state
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000L),
+                initialValue = WalkthroughState,
+            )
 }

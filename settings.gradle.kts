@@ -35,5 +35,7 @@ include(":feature-desingsystem")
 include(":feature-navigationsuite")
 include(":feature-pane")
 
+include(":screen-walkthrough")
+
 include(":shared-di")
 include(":shared-entry")
