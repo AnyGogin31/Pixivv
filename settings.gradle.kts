@@ -33,6 +33,7 @@ include(":data-remote")
 
 include(":feature-desingsystem")
 include(":feature-navigationsuite")
+include(":feature-pager")
 include(":feature-pane")
 
 include(":screen-walkthrough")

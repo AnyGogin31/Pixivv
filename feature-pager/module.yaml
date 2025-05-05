@@ -3,17 +3,13 @@ product:
   platforms: [ jvm, android, iosArm64, iosSimulatorArm64, iosX64 ]
 
 dependencies:
-  - ../feature-pager
   - $compose.foundation
   - $compose.material3
   - $compose.runtime
-  - $libs.androidx.lifecycle.viewmodel
-  - $libs.androidx.lifecycle.runtime
-  - $libs.kotlinx.coroutines.core
 
 settings:
   android:
-    namespace: io.anygogin31.pixivv.screen.walkthrough
+    namespace: io.anygogin31.pixivv.feature.pager
   compose:
     version: 1.6.10
     enabled: true
