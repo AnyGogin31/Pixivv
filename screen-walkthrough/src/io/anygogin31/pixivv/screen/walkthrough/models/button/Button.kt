@@ -22,11 +22,10 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.screen.walkthrough
+package io.anygogin31.pixivv.screen.walkthrough.models.button
 
-import io.anygogin31.pixivv.screen.walkthrough.models.page.WalkthroughPage
-
-public data class WalkthroughState(
-    public val pages: List<WalkthroughPage> = emptyList(),
-    public val unlockedPages: Set<WalkthroughPage> = emptySet(),
+public data class Button(
+    public val text: String,
+    public val action: ButtonAction,
+    public val style: ButtonStyle? = null,
 )

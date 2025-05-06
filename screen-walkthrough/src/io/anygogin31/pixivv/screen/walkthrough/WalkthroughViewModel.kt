@@ -26,18 +26,61 @@ package io.anygogin31.pixivv.screen.walkthrough
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.anygogin31.pixivv.screen.walkthrough.models.page.AuthorizationPage
+import io.anygogin31.pixivv.screen.walkthrough.models.page.ClientPolicyPage
+import io.anygogin31.pixivv.screen.walkthrough.models.page.ServicePolicyPage
+import io.anygogin31.pixivv.screen.walkthrough.models.page.WelcomePage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 public class WalkthroughViewModel : ViewModel() {
-    private val _state = MutableStateFlow(WalkthroughState)
+    private val _state = MutableStateFlow(WalkthroughState())
     public val state: StateFlow<WalkthroughState> =
         _state
+            .onStart {
+                loadState()
+            }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5000L),
-                initialValue = WalkthroughState,
+                initialValue = WalkthroughState(),
             )
+
+    private fun loadState() {
+        viewModelScope.launch {
+            async {
+                loadPages()
+            }
+        }
+    }
+
+    private suspend fun loadPages() {
+        withContext(Dispatchers.IO) {
+            _state.update {
+                it.copy(
+                    pages =
+                        listOf(
+                            WelcomePage,
+                            ServicePolicyPage,
+                            ClientPolicyPage,
+                            AuthorizationPage,
+                        ),
+                    unlockedPages =
+                        setOf(
+                            WelcomePage,
+                            ServicePolicyPage,
+                        ),
+                )
+            }
+        }
+    }
 }

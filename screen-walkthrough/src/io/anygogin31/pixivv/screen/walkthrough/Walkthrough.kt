@@ -24,6 +24,9 @@
 
 package io.anygogin31.pixivv.screen.walkthrough
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -43,9 +46,12 @@ public fun WalkthroughRoot(
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 public fun WalkthroughScreen(
     modifier: Modifier = Modifier,
     state: WalkthroughState,
 ) {
+    val pageCount: () -> Int = { state.pages.size }
+    val pagerState: PagerState = rememberPagerState(pageCount = pageCount)
 }
