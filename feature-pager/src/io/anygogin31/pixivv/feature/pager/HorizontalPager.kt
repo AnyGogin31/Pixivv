@@ -41,6 +41,7 @@ import kotlin.ranges.coerceAtMost
 public fun HorizontalPager(
     state: PagerState,
     modifier: Modifier = Modifier,
+    key: ((index: Int) -> Any)? = null,
     pageContent: @Composable PagerScope.(page: Int) -> Unit,
 ) {
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
@@ -70,6 +71,7 @@ public fun HorizontalPager(
                     }
                 },
             ),
+        key = key,
         pageContent = pageContent,
     )
 }
