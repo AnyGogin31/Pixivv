@@ -25,51 +25,28 @@
 package io.anygogin31.pixivv.feature.pager
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PagerScope
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import io.anygogin31.pixivv.feature.pager.modifiers.desktopPagerScrollFix
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import kotlin.ranges.coerceAtMost
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
 @ExperimentalFoundationApi
 @Composable
-public fun HorizontalPager(
-    state: PagerState,
+public fun PagerIndicator(
+    pagerState: PagerState,
     modifier: Modifier = Modifier,
-    pageContent: @Composable PagerScope.(page: Int) -> Unit,
+    indicatorSpacing: Dp = 8.dp,
+    indicatorIcon: @Composable (page: Int) -> Unit = {},
 ) {
-    val coroutineScope: CoroutineScope = rememberCoroutineScope()
-
-    val animateScrollToPage = fun(page: () -> Int) {
-        coroutineScope.launch {
-            state.animateScrollToPage(page())
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(indicatorSpacing),
+    ) {
+        repeat(pagerState.pageCount) { page: Int ->
+            indicatorIcon(page)
         }
     }
-
-    HorizontalPager(
-        state = state,
-        modifier =
-            modifier.desktopPagerScrollFix(
-                onNext = {
-                    coroutineScope.launch {
-                        animateScrollToPage {
-                            (state.currentPage + 1).coerceAtMost(state.pageCount - 1)
-                        }
-                    }
-                },
-                onPrevious = {
-                    coroutineScope.launch {
-                        animateScrollToPage {
-                            (state.currentPage - 1).coerceAtLeast(0)
-                        }
-                    }
-                },
-            ),
-        pageContent = pageContent,
-    )
 }
