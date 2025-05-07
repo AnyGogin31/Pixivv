@@ -22,23 +22,16 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.entry
+package io.anygogin31.pixivv.feature.uri
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Modifier
-import io.anygogin31.pixivv.feature.desingsystem.PixivvTheme
-import io.anygogin31.pixivv.feature.uri.LocalUriLauncher
-import io.anygogin31.pixivv.feature.uri.platformUriLauncher
-import io.anygogin31.pixivv.screen.walkthrough.WalkthroughRoot
+import org.jetbrains.skiko.URIManager
+
+private class IosUriLauncher : UriLauncher, URIManager() {
+    override fun openUriCustomTabs(uri: String) = openUri(uri)
+}
 
 @Composable
-internal fun PixivvEntryView(modifier: Modifier = Modifier) {
-    PixivvTheme {
-        CompositionLocalProvider(
-            LocalUriLauncher provides platformUriLauncher(),
-        ) {
-            WalkthroughRoot(modifier)
-        }
-    }
+public actual fun platformUriLauncher(): UriLauncher {
+    return IosUriLauncher()
 }

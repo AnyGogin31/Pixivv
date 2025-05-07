@@ -3,23 +3,17 @@ product:
   platforms: [ jvm, android, iosArm64, iosSimulatorArm64, iosX64 ]
 
 dependencies:
-  - ../core-theme
-  - ../feature-desingsystem
-  - ../feature-uri
-  - ../screen-walkthrough
   - $compose.foundation
   - $compose.material3
   - $compose.runtime
 
-dependencies@jvm:
-  - ../shared-di
-  - $libs.koin.compose
-
-dependencies@ios:
-  - ../shared-di
-  - $libs.koin.compose
+dependencies@android:
+  - $libs.androidx.browser
+  - $libs.androidx.core
 
 settings:
+  android:
+    namespace: io.anygogin31.pixivv.feature.uri
   compose:
     version: 1.6.10
     enabled: true
