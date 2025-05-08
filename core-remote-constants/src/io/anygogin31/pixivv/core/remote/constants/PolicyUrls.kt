@@ -22,10 +22,16 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.screen.walkthrough.models.button
+package io.anygogin31.pixivv.core.remote.constants
 
-public sealed interface ButtonAction
+public const val PIXIV_SERVICE_POLICY_URL: String =
+    "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f" +
+        "\u0070\u006f\u006c\u0069\u0063\u0069\u0065\u0073" +
+        "\u002e\u0070\u0069\u0078\u0069\u0076\u002e\u006e" +
+        "\u0065\u0074\u002f\u0065\u006e\u002f\u0070\u0072" +
+        "\u0069\u0076\u0061\u0063\u0079\u005f\u0070\u006f" +
+        "\u006c\u0069\u0063\u0079\u002e\u0068\u0074\u006d" +
+        "\u006c"
 
-internal data object Agree : ButtonAction
-
-internal data class OpenBrowser(public val url: String) : ButtonAction
+// TODO
+public const val PIXIVV_CLIENT_POLICY_URL: String = ""

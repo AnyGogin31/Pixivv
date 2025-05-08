@@ -26,38 +26,30 @@ package io.anygogin31.pixivv.screen.walkthrough
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import io.anygogin31.pixivv.feature.pager.HorizontalPager
 import io.anygogin31.pixivv.feature.pager.PagerIndicator
 import io.anygogin31.pixivv.feature.pager.PagerIndicatorIcon
-import io.anygogin31.pixivv.screen.walkthrough.models.button.Agree
-import io.anygogin31.pixivv.screen.walkthrough.models.button.Button
-import io.anygogin31.pixivv.screen.walkthrough.models.button.ButtonAction
-import io.anygogin31.pixivv.screen.walkthrough.models.button.OpenBrowser
-import io.anygogin31.pixivv.screen.walkthrough.models.page.AuthorizationPage
-import io.anygogin31.pixivv.screen.walkthrough.models.page.ClientPolicyPage
-import io.anygogin31.pixivv.screen.walkthrough.models.page.ServicePolicyPage
 import io.anygogin31.pixivv.screen.walkthrough.models.page.WalkthroughPage
-import io.anygogin31.pixivv.screen.walkthrough.models.page.WelcomePage
+import io.anygogin31.pixivv.screen.walkthrough.pages.AuthorizationPage
+import io.anygogin31.pixivv.screen.walkthrough.pages.AuthorizationPageContent
+import io.anygogin31.pixivv.screen.walkthrough.pages.ClientPolicyPage
+import io.anygogin31.pixivv.screen.walkthrough.pages.ClientPolicyPageContent
+import io.anygogin31.pixivv.screen.walkthrough.pages.ServicePolicyPage
+import io.anygogin31.pixivv.screen.walkthrough.pages.ServicePolicyPageContent
+import io.anygogin31.pixivv.screen.walkthrough.pages.WelcomePage
+import io.anygogin31.pixivv.screen.walkthrough.pages.WelcomePageContent
 
 @Composable
 public fun WalkthroughRoot(
@@ -78,7 +70,7 @@ public fun WalkthroughScreen(
     modifier: Modifier = Modifier,
     state: WalkthroughState,
 ) {
-    val pageCount: () -> Int = { state.pages.size }
+    val pageCount = fun(): Int = state.pages.size
     val pagerState: PagerState = rememberPagerState(pageCount = pageCount)
 
     val getPageByIndex = fun(index: Int): WalkthroughPage = state.pages[index]
@@ -92,7 +84,7 @@ public fun WalkthroughScreen(
             state = pagerState,
             modifier = Modifier.weight(1f),
             key = { index: Int ->
-                getPageByIndex(index)
+                getPageByIndex(index).id.value
             },
         ) { index: Int ->
             val page: WalkthroughPage = getPageByIndex(index)
@@ -107,171 +99,8 @@ public fun WalkthroughScreen(
         PagerIndicator(
             pagerState = pagerState,
             modifier = Modifier.padding(16.dp),
-        ) { page: Int ->
+        ) { index: Int ->
             PagerIndicatorIcon()
         }
-    }
-}
-
-@Composable
-private fun WelcomePageContent(data: WelcomePage) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
-    ) {
-        Text(
-            text = data.title,
-            fontSize = 32.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-        )
-
-        Text(
-            text = data.description,
-            fontSize = 16.sp,
-            textAlign = TextAlign.Center,
-        )
-    }
-}
-
-@Composable
-private fun ServicePolicyPageContent(data: ServicePolicyPage) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        Column(
-            modifier = Modifier.align(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
-        ) {
-            Text(
-                text = data.title,
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-            )
-
-            Text(
-                text = data.description,
-                fontSize = 16.sp,
-                textAlign = TextAlign.Center,
-            )
-        }
-
-        Row(
-            modifier =
-                Modifier
-                    .padding(horizontal = 16.dp)
-                    .align(Alignment.BottomCenter),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            data.buttons.forEach { button: Button ->
-                ActionButton(
-                    button = button,
-                    modifier = Modifier.weight(1f),
-                    onAction = { action: ButtonAction ->
-                        when (action) {
-                            is OpenBrowser -> TODO()
-                            is Agree -> TODO()
-                        }
-                    },
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun ClientPolicyPageContent(data: ClientPolicyPage) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        Column(
-            modifier = Modifier.align(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
-        ) {
-            Text(
-                text = data.title,
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-            )
-
-            Text(
-                text = data.description,
-                fontSize = 16.sp,
-                textAlign = TextAlign.Center,
-            )
-        }
-
-        Row(
-            modifier =
-                Modifier
-                    .padding(horizontal = 16.dp)
-                    .align(Alignment.BottomCenter),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            data.buttons.forEach { button: Button ->
-                ActionButton(
-                    button = button,
-                    modifier = Modifier.weight(1f),
-                    onAction = { action: ButtonAction ->
-                        when (action) {
-                            is OpenBrowser -> TODO()
-                            is Agree -> TODO()
-                        }
-                    },
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun AuthorizationPageContent(data: AuthorizationPage) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.CenterVertically),
-    ) {
-        Text(
-            text = data.title,
-            fontSize = 32.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-        )
-
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            data.buttons.forEach { button: Button ->
-                ActionButton(
-                    button = button,
-                    modifier = Modifier.fillMaxWidth(0.75f),
-                    onAction = { action: ButtonAction ->
-                        if (action is OpenBrowser) TODO()
-                    },
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun ActionButton(
-    button: Button,
-    modifier: Modifier = Modifier,
-    onAction: (action: ButtonAction) -> Unit = {},
-) {
-    Button(
-        onClick = {
-            onAction(button.action)
-        },
-        modifier = modifier,
-    ) {
-        Text(text = button.text)
     }
 }

@@ -3,7 +3,9 @@ product:
   platforms: [ jvm, android, iosArm64, iosSimulatorArm64, iosX64 ]
 
 dependencies:
+  - ../core-remote-constants
   - ../feature-pager
+  - ../feature-uri
   - $compose.foundation
   - $compose.material3
   - $compose.runtime

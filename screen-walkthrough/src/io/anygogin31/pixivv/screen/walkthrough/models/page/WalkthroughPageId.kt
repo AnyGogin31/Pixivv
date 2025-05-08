@@ -22,10 +22,9 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.screen.walkthrough.models.button
+package io.anygogin31.pixivv.screen.walkthrough.models.page
 
-public sealed interface ButtonAction
+import kotlin.jvm.JvmInline
 
-internal data object Agree : ButtonAction
-
-internal data class OpenBrowser(public val url: String) : ButtonAction
+@JvmInline
+public value class WalkthroughPageId(public val value: Int)

@@ -24,47 +24,8 @@
 
 package io.anygogin31.pixivv.screen.walkthrough.models.page
 
-import io.anygogin31.pixivv.screen.walkthrough.models.button.Agree
-import io.anygogin31.pixivv.screen.walkthrough.models.button.Button
-import io.anygogin31.pixivv.screen.walkthrough.models.button.OpenBrowser
-import io.anygogin31.pixivv.screen.walkthrough.models.button.Transparent
-
-public sealed interface WalkthroughPage {
+public interface WalkthroughPage {
+    public val id: WalkthroughPageId
     public val title: String
     public val description: String?
-}
-
-internal data object WelcomePage : WalkthroughPage {
-    override val title: String = "Pixivv"
-    override val description: String = "Welcome to a third-party client for Pixiv"
-}
-
-internal data object ServicePolicyPage : WalkthroughPage {
-    override val title: String = "Privacy Policy"
-    override val description: String = "Before using the Pixiv service, please review their privacy policy"
-    public val buttons: List<Button> =
-        listOf(
-            Button("Read", OpenBrowser),
-            Button("I Agree", Agree),
-        )
-}
-
-internal data object ClientPolicyPage : WalkthroughPage {
-    override val title: String = "Client Privacy Policy"
-    override val description: String = "Your privacy matters. We do not collect, store, or share any personal data"
-    public val buttons: List<Button> =
-        listOf(
-            Button("Read", OpenBrowser),
-            Button("I Agree", Agree),
-        )
-}
-
-internal data object AuthorizationPage : WalkthroughPage {
-    override val title: String = "Authorization"
-    override val description: String? = null
-    public val buttons: List<Button> =
-        listOf(
-            Button("Login", OpenBrowser),
-            Button("Don't have an account?", OpenBrowser, Transparent),
-        )
 }

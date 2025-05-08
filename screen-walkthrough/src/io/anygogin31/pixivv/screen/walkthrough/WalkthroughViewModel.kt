@@ -26,10 +26,10 @@ package io.anygogin31.pixivv.screen.walkthrough
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.anygogin31.pixivv.screen.walkthrough.models.page.AuthorizationPage
-import io.anygogin31.pixivv.screen.walkthrough.models.page.ClientPolicyPage
-import io.anygogin31.pixivv.screen.walkthrough.models.page.ServicePolicyPage
-import io.anygogin31.pixivv.screen.walkthrough.models.page.WelcomePage
+import io.anygogin31.pixivv.screen.walkthrough.pages.AuthorizationPage
+import io.anygogin31.pixivv.screen.walkthrough.pages.ClientPolicyPage
+import io.anygogin31.pixivv.screen.walkthrough.pages.ServicePolicyPage
+import io.anygogin31.pixivv.screen.walkthrough.pages.WelcomePage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.async
