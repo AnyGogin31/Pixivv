@@ -6,7 +6,6 @@ dependencies:
   - ../core-theme
   - ../feature-desingsystem
   - ../feature-uri
-  - ../screen-walkthrough
   - $compose.foundation
   - $compose.material3
   - $compose.runtime

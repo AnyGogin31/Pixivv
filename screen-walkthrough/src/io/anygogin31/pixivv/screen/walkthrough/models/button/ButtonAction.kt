@@ -28,4 +28,6 @@ public sealed interface ButtonAction
 
 internal data object Agree : ButtonAction
 
+internal data object Back : ButtonAction
+
 internal data class OpenBrowser(public val url: String) : ButtonAction

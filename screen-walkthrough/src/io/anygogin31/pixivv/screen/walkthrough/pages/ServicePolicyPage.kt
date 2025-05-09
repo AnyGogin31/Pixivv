@@ -64,6 +64,7 @@ internal data object ServicePolicyPage : WalkthroughPage {
 internal fun ServicePolicyPageContent(
     data: ServicePolicyPage,
     modifier: Modifier = Modifier,
+    onAgree: () -> Unit = {},
 ) {
     val uriLauncher: UriLauncher = LocalUriLauncher.current
     Box(
@@ -101,8 +102,9 @@ internal fun ServicePolicyPageContent(
                     modifier = Modifier.weight(1f),
                     onAction = { action: ButtonAction ->
                         when (action) {
-                            is Agree -> TODO()
+                            is Agree -> onAgree()
                             is OpenBrowser -> uriLauncher.openUriCustomTabs(action.url)
+                            else -> Unit
                         }
                     },
                 )

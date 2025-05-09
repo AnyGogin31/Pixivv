@@ -26,6 +26,7 @@ package io.anygogin31.pixivv.screen.walkthrough
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.anygogin31.pixivv.screen.walkthrough.models.page.WalkthroughPage
 import io.anygogin31.pixivv.screen.walkthrough.pages.AuthorizationPage
 import io.anygogin31.pixivv.screen.walkthrough.pages.ClientPolicyPage
 import io.anygogin31.pixivv.screen.walkthrough.pages.ServicePolicyPage
@@ -80,6 +81,24 @@ public class WalkthroughViewModel : ViewModel() {
                             ServicePolicyPage,
                         ),
                 )
+            }
+        }
+    }
+
+    private fun unlockPage(page: WalkthroughPage) {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(
+                    unlockedPages = it.unlockedPages + page,
+                )
+            }
+        }
+    }
+
+    public fun onAction(action: WalkthroughAction) {
+        viewModelScope.launch {
+            when (action) {
+                is WalkthroughAction.UnlockPage -> unlockPage(action.page)
             }
         }
     }

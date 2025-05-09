@@ -24,6 +24,9 @@
 
 package io.anygogin31.pixivv.screen.walkthrough
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,8 +34,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -46,10 +54,17 @@ import io.anygogin31.pixivv.screen.walkthrough.pages.AuthorizationPage
 import io.anygogin31.pixivv.screen.walkthrough.pages.AuthorizationPageContent
 import io.anygogin31.pixivv.screen.walkthrough.pages.ClientPolicyPage
 import io.anygogin31.pixivv.screen.walkthrough.pages.ClientPolicyPageContent
+import io.anygogin31.pixivv.screen.walkthrough.pages.LockedPage
+import io.anygogin31.pixivv.screen.walkthrough.pages.LockedPageContent
 import io.anygogin31.pixivv.screen.walkthrough.pages.ServicePolicyPage
 import io.anygogin31.pixivv.screen.walkthrough.pages.ServicePolicyPageContent
 import io.anygogin31.pixivv.screen.walkthrough.pages.WelcomePage
 import io.anygogin31.pixivv.screen.walkthrough.pages.WelcomePageContent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+
+// TODO: Refactor page unlocking logic for better clarity and efficiency
+// TODO: Finalize background implementation using Pixiv illustrations for all pages
 
 @Composable
 public fun WalkthroughRoot(
@@ -61,6 +76,7 @@ public fun WalkthroughRoot(
     WalkthroughScreen(
         modifier = modifier,
         state = state,
+        onAction = viewModel::onAction,
     )
 }
 
@@ -69,11 +85,14 @@ public fun WalkthroughRoot(
 public fun WalkthroughScreen(
     modifier: Modifier = Modifier,
     state: WalkthroughState,
+    onAction: (action: WalkthroughAction) -> Unit,
 ) {
     val pageCount = fun(): Int = state.pages.size
     val pagerState: PagerState = rememberPagerState(pageCount = pageCount)
 
     val getPageByIndex = fun(index: Int): WalkthroughPage = state.pages[index]
+
+    val coroutineScope: CoroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = modifier.fillMaxSize(),
@@ -88,19 +107,82 @@ public fun WalkthroughScreen(
             },
         ) { index: Int ->
             val page: WalkthroughPage = getPageByIndex(index)
-            when (page) {
-                is WelcomePage -> WelcomePageContent(page)
-                is ServicePolicyPage -> ServicePolicyPageContent(page)
-                is ClientPolicyPage -> ClientPolicyPageContent(page)
-                is AuthorizationPage -> AuthorizationPageContent(page)
+            val isUnlocked: Boolean = state.unlockedPages.contains(page)
+
+            if (!isUnlocked) {
+                LockedPageContent(
+                    data = LockedPage,
+                    onBack = {
+                        coroutineScope.launch {
+                            pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                        }
+                    },
+                )
+            } else {
+                when (page) {
+                    is WelcomePage -> WelcomePageContent(page)
+
+                    is ServicePolicyPage -> {
+                        ServicePolicyPageContent(
+                            data = page,
+                            onAgree = {
+                                coroutineScope.launch {
+                                    pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                                }
+                                onAction(WalkthroughAction.UnlockPage(getPageByIndex(index + 1)))
+                            },
+                        )
+                    }
+
+                    is ClientPolicyPage -> {
+                        ClientPolicyPageContent(
+                            data = page,
+                            onAgree = {
+                                coroutineScope.launch {
+                                    pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                                }
+                                onAction(WalkthroughAction.UnlockPage(getPageByIndex(index + 1)))
+                            },
+                        )
+                    }
+
+                    is AuthorizationPage -> AuthorizationPageContent(page)
+                }
             }
         }
 
-        PagerIndicator(
-            pagerState = pagerState,
-            modifier = Modifier.padding(16.dp),
-        ) { index: Int ->
-            PagerIndicatorIcon()
+        AnimatedVisibility(
+            visible =
+                !(
+                    state.unlockedPages.contains(state.pages.lastOrNull()) &&
+                        pagerState.currentPage == state.pages.size - 1
+                ) &&
+                    state.pages.isNotEmpty(),
+            enter = slideInVertically(initialOffsetY = { it }),
+            exit = slideOutVertically(targetOffsetY = { it }),
+        ) {
+            PagerIndicator(
+                pagerState = pagerState,
+                modifier = Modifier.padding(16.dp),
+            ) { index: Int ->
+                val page: WalkthroughPage = getPageByIndex(index)
+                val isUnlocked: Boolean = state.unlockedPages.contains(page)
+                val isCurrentPage: Boolean = pagerState.currentPage == index
+                PagerIndicatorIcon(
+                    color =
+                        if (isCurrentPage) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.onSurface
+                        },
+                    icon =
+                        when {
+                            !isUnlocked -> Icons.Default.Lock
+                            page is AuthorizationPage && isUnlocked -> Icons.Default.Person
+                            else -> null
+                        },
+                )
+            }
         }
     }
 }
