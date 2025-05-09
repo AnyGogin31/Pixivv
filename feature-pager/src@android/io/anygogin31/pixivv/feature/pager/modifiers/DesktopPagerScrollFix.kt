@@ -22,21 +22,11 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.entry
+package io.anygogin31.pixivv.feature.pager.modifiers
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
-import io.anygogin31.pixivv.feature.desingsystem.PixivvTheme
-import io.anygogin31.pixivv.feature.uri.LocalUriLauncher
-import io.anygogin31.pixivv.feature.uri.platformUriLauncher
 
-@Composable
-internal fun PixivvEntryView(modifier: Modifier = Modifier) {
-    PixivvTheme {
-        CompositionLocalProvider(
-            LocalUriLauncher provides platformUriLauncher(),
-        ) {
-        }
-    }
-}
+internal actual fun Modifier.desktopPagerScrollFix(
+    onNext: () -> Unit,
+    onPrevious: () -> Unit,
+): Modifier = this

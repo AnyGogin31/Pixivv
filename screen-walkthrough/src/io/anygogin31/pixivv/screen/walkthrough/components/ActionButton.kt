@@ -22,21 +22,42 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.entry
+package io.anygogin31.pixivv.screen.walkthrough.components
 
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
-import io.anygogin31.pixivv.feature.desingsystem.PixivvTheme
-import io.anygogin31.pixivv.feature.uri.LocalUriLauncher
-import io.anygogin31.pixivv.feature.uri.platformUriLauncher
+import androidx.compose.ui.graphics.Color
+import io.anygogin31.pixivv.screen.walkthrough.models.button.Button
+import io.anygogin31.pixivv.screen.walkthrough.models.button.ButtonAction
+import io.anygogin31.pixivv.screen.walkthrough.models.button.Transparent
 
 @Composable
-internal fun PixivvEntryView(modifier: Modifier = Modifier) {
-    PixivvTheme {
-        CompositionLocalProvider(
-            LocalUriLauncher provides platformUriLauncher(),
-        ) {
+internal fun ActionButton(
+    button: Button,
+    modifier: Modifier = Modifier,
+    onAction: (action: ButtonAction) -> Unit = {},
+) {
+    val colors: ButtonColors =
+        when (button.style) {
+            is Transparent ->
+                ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent,
+                )
+
+            else -> ButtonDefaults.buttonColors()
         }
+
+    Button(
+        onClick = {
+            onAction(button.action)
+        },
+        modifier = modifier,
+        colors = colors,
+    ) {
+        Text(text = button.text)
     }
 }

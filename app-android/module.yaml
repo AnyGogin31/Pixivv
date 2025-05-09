@@ -5,6 +5,7 @@ dependencies:
   - ../shared-entry
   - $libs.androidx.activity.compose
   - $libs.koin.android
+  - $libs.kotlinx.coroutines.android
 
 settings:
   android:

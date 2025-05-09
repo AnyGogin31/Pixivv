@@ -22,21 +22,29 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.entry
+package io.anygogin31.pixivv.feature.uri
 
+import android.content.Context
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Modifier
-import io.anygogin31.pixivv.feature.desingsystem.PixivvTheme
-import io.anygogin31.pixivv.feature.uri.LocalUriLauncher
-import io.anygogin31.pixivv.feature.uri.platformUriLauncher
+import androidx.compose.ui.platform.AndroidUriHandler
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.UriHandler
+import androidx.core.net.toUri
 
-@Composable
-internal fun PixivvEntryView(modifier: Modifier = Modifier) {
-    PixivvTheme {
-        CompositionLocalProvider(
-            LocalUriLauncher provides platformUriLauncher(),
-        ) {
+private class AndroidUriLauncher(private val context: Context) : UriLauncher, UriHandler by AndroidUriHandler(context) {
+    override fun openUriCustomTabs(uri: String) {
+        runCatching {
+            val customTabsIntent: CustomTabsIntent = CustomTabsIntent.Builder().build()
+            customTabsIntent.launchUrl(context, uri.toUri())
+        }.onFailure {
+            openUri(uri)
         }
     }
+}
+
+@Composable
+public actual fun platformUriLauncher(): UriLauncher {
+    val context: Context = LocalContext.current
+    return AndroidUriLauncher(context)
 }

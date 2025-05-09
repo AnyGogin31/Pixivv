@@ -22,21 +22,43 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.entry
+package io.anygogin31.pixivv.feature.pager
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
-import io.anygogin31.pixivv.feature.desingsystem.PixivvTheme
-import io.anygogin31.pixivv.feature.uri.LocalUriLauncher
-import io.anygogin31.pixivv.feature.uri.platformUriLauncher
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
 @Composable
-internal fun PixivvEntryView(modifier: Modifier = Modifier) {
-    PixivvTheme {
-        CompositionLocalProvider(
-            LocalUriLauncher provides platformUriLauncher(),
-        ) {
-        }
+public fun PagerIndicatorIcon(
+    modifier: Modifier = Modifier,
+    size: Dp = 12.dp,
+    color: Color = MaterialTheme.colorScheme.onSurface,
+    icon: ImageVector? = null,
+) {
+    if (icon != null) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = color,
+            modifier = modifier.size(size),
+        )
+    } else {
+        Box(
+            modifier =
+                modifier
+                    .size(size)
+                    .clip(CircleShape)
+                    .background(color),
+        )
     }
 }

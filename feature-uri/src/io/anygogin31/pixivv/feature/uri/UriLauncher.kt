@@ -22,21 +22,21 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.entry
+package io.anygogin31.pixivv.feature.uri
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Modifier
-import io.anygogin31.pixivv.feature.desingsystem.PixivvTheme
-import io.anygogin31.pixivv.feature.uri.LocalUriLauncher
-import io.anygogin31.pixivv.feature.uri.platformUriLauncher
+import androidx.compose.runtime.ProvidableCompositionLocal
+import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.platform.UriHandler
+
+public interface UriLauncher : UriHandler {
+    public fun openUriCustomTabs(uri: String)
+}
+
+public val LocalUriLauncher: ProvidableCompositionLocal<UriLauncher> =
+    staticCompositionLocalOf {
+        error("LocalUriLauncher is not provided. Please ensure you are wrapping your composables with a provider.")
+    }
 
 @Composable
-internal fun PixivvEntryView(modifier: Modifier = Modifier) {
-    PixivvTheme {
-        CompositionLocalProvider(
-            LocalUriLauncher provides platformUriLauncher(),
-        ) {
-        }
-    }
-}
+public expect fun platformUriLauncher(): UriLauncher

@@ -22,21 +22,31 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.entry
+package io.anygogin31.pixivv.feature.pager
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
-import io.anygogin31.pixivv.feature.desingsystem.PixivvTheme
-import io.anygogin31.pixivv.feature.uri.LocalUriLauncher
-import io.anygogin31.pixivv.feature.uri.platformUriLauncher
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
+@ExperimentalFoundationApi
 @Composable
-internal fun PixivvEntryView(modifier: Modifier = Modifier) {
-    PixivvTheme {
-        CompositionLocalProvider(
-            LocalUriLauncher provides platformUriLauncher(),
-        ) {
+public fun PagerIndicator(
+    pagerState: PagerState,
+    modifier: Modifier = Modifier,
+    indicatorSpacing: Dp = 8.dp,
+    indicatorIcon: @Composable (page: Int) -> Unit = {},
+) {
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(indicatorSpacing),
+    ) {
+        repeat(pagerState.pageCount) { page: Int ->
+            indicatorIcon(page)
         }
     }
 }

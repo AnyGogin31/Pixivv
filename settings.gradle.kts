@@ -33,7 +33,11 @@ include(":data-remote")
 
 include(":feature-desingsystem")
 include(":feature-navigationsuite")
+include(":feature-pager")
 include(":feature-pane")
+include(":feature-uri")
+
+include(":screen-walkthrough")
 
 include(":shared-di")
 include(":shared-entry")
