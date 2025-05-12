@@ -41,3 +41,4 @@ include(":screen-walkthrough")
 
 include(":shared-di")
 include(":shared-entry")
+include(":shared-setup")

@@ -1,0 +1,25 @@
+product:
+  type: lib
+  platforms: [ jvm, android, iosArm64, iosSimulatorArm64, iosX64 ]
+
+dependencies:
+  - ../shared-di
+  - $compose.runtime
+  - $libs.koin.core
+
+dependencies@android:
+  - $libs.androidx.startup
+  - $libs.koin.android
+
+dependencies@jvm:
+  - $libs.koin.compose
+
+dependencies@ios:
+  - $libs.koin.compose
+
+settings:
+  android:
+    namespace: io.anygogin31.pixivv.shared.setup
+  compose:
+    version: 1.6.10
+    enabled: true
