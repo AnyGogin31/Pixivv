@@ -39,6 +39,6 @@ include(":feature-uri")
 
 include(":screen-walkthrough")
 
+include(":shared-app")
 include(":shared-di")
-include(":shared-entry")
 include(":shared-setup")

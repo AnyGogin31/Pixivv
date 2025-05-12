@@ -25,10 +25,13 @@
 package io.anygogin31.pixivv.shared.setup
 
 import androidx.compose.runtime.Composable
+import io.anygogin31.pixivv.feature.desingsystem.PixivvTheme
 
 @Composable
-public fun PixivvAppSetup(content: @Composable () -> Unit) {
+public fun PixivvSetupProvider(content: @Composable () -> Unit) {
     PixivvModulesProvider {
-        content()
+        PixivvTheme {
+            content()
+        }
     }
 }

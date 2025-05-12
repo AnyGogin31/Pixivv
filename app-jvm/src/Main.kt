@@ -24,13 +24,16 @@
 
 package io.anygogin31.pixivv
 
+import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import io.anygogin31.pixivv.shared.entry.EntryView
+import io.anygogin31.pixivv.shared.app.App
 
 public fun main() {
     application {
-        EntryView(
+        Window(
             onCloseRequest = ::exitApplication,
-        )
+        ) {
+            App()
+        }
     }
 }

@@ -22,12 +22,13 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.entry
+package io.anygogin31.pixivv.shared.app
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import io.anygogin31.pixivv.shared.setup.PixivvSetupProvider
 
 @Composable
-public fun EntryView(modifier: Modifier = Modifier) {
-    PixivvEntryView(modifier = modifier)
+public fun App() {
+    PixivvSetupProvider {
+    }
 }

@@ -23,11 +23,11 @@
  */
 
 import androidx.compose.ui.window.ComposeUIViewController
-import io.anygogin31.pixivv.shared.entry.EntryView
+import io.anygogin31.pixivv.shared.app.App
 import platform.UIKit.UIViewController
 
 public fun ViewController(): UIViewController {
     return ComposeUIViewController {
-        EntryView()
+        App()
     }
 }
