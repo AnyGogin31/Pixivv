@@ -32,6 +32,6 @@ private class JvmUriLauncher : UriLauncher, URIManager() {
 }
 
 @Composable
-public actual fun platformUriLauncher(): UriLauncher {
+internal actual fun platformUriLauncher(): UriLauncher {
     return JvmUriLauncher()
 }
