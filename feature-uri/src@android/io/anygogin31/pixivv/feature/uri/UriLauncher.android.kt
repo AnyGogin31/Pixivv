@@ -44,7 +44,7 @@ private class AndroidUriLauncher(private val context: Context) : UriLauncher, Ur
 }
 
 @Composable
-public actual fun platformUriLauncher(): UriLauncher {
+internal actual fun platformUriLauncher(): UriLauncher {
     val context: Context = LocalContext.current
     return AndroidUriLauncher(context)
 }

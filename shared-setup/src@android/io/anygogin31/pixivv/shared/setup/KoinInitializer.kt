@@ -22,21 +22,24 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.entry
+package io.anygogin31.pixivv.shared.setup
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Modifier
-import io.anygogin31.pixivv.feature.desingsystem.PixivvTheme
-import io.anygogin31.pixivv.feature.uri.LocalUriLauncher
-import io.anygogin31.pixivv.feature.uri.platformUriLauncher
+import android.content.Context
+import androidx.startup.Initializer
+import io.anygogin31.pixivv.shared.di.PixivvModules
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.KoinApplication
+import org.koin.core.context.startKoin
 
-@Composable
-internal fun PixivvEntryView(modifier: Modifier = Modifier) {
-    PixivvTheme {
-        CompositionLocalProvider(
-            LocalUriLauncher provides platformUriLauncher(),
-        ) {
+internal class KoinInitializer : Initializer<KoinApplication> {
+    override fun create(context: Context): KoinApplication {
+        return startKoin {
+            androidContext(context)
+            modules(PixivvModules)
         }
+    }
+
+    override fun dependencies(): List<Class<out Initializer<*>>> {
+        return emptyList()
     }
 }

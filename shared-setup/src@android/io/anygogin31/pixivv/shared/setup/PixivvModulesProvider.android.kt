@@ -22,8 +22,11 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv
+package io.anygogin31.pixivv.shared.setup
 
-import android.app.Application
+import androidx.compose.runtime.Composable
 
-public class MainApplication : Application()
+@Composable
+internal actual fun PixivvModulesProvider(content: @Composable () -> Unit) {
+    content()
+}

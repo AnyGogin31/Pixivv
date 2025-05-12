@@ -25,6 +25,7 @@
 package io.anygogin31.pixivv.feature.uri
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.UriHandler
@@ -39,4 +40,13 @@ public val LocalUriLauncher: ProvidableCompositionLocal<UriLauncher> =
     }
 
 @Composable
-public expect fun platformUriLauncher(): UriLauncher
+internal expect fun platformUriLauncher(): UriLauncher
+
+@Composable
+public fun UriLauncherProvider(content: @Composable () -> Unit) {
+    CompositionLocalProvider(
+        LocalUriLauncher provides platformUriLauncher(),
+    ) {
+        content()
+    }
+}

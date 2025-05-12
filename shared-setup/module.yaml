@@ -5,20 +5,23 @@ product:
 dependencies:
   - ../core-theme
   - ../feature-desingsystem
-  - ../feature-uri
-  - $compose.foundation
-  - $compose.material3
+  - ../shared-di
   - $compose.runtime
+  - $libs.koin.core
+
+dependencies@android:
+  - $libs.androidx.startup
+  - $libs.koin.android
 
 dependencies@jvm:
-  - ../shared-di
   - $libs.koin.compose
 
 dependencies@ios:
-  - ../shared-di
   - $libs.koin.compose
 
 settings:
+  android:
+    namespace: io.anygogin31.pixivv.shared.setup
   compose:
     version: 1.6.10
     enabled: true
