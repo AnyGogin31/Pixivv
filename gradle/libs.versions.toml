@@ -12,7 +12,7 @@ androidx-startup = "1.2.0"
 brotli = "0.1.2"
 
 # Compose
-compose-adaptive = "1.0.1"
+compose-adaptive = "1.1.0"
 compose-adaptive-navigation = "1.8.0"
 
 # Koin
