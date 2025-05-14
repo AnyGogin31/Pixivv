@@ -22,16 +22,13 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.di
+package io.anygogin31.pixivv.data.remote.sources
 
-import io.anygogin31.pixivv.data.remote.sources.RecommendationsRemoteDataSource
-import io.anygogin31.pixivv.data.remote.sources.WalkthroughRemoteDataSource
-import org.koin.core.module.Module
-import org.koin.core.module.dsl.singleOf
-import org.koin.dsl.module
+import io.anygogin31.pixivv.data.remote.clients.pixiv.PixivApiClient
+import io.anygogin31.pixivv.data.remote.services.pixiv.v1.getWalkthroughIllusts
 
-public val DataRemoteModule: Module =
-    module {
-        singleOf(::RecommendationsRemoteDataSource)
-        singleOf(::WalkthroughRemoteDataSource)
+public class WalkthroughRemoteDataSource {
+    public suspend fun getWalkthroughIllusts(): Result<Unit> {
+        return PixivApiClient.getWalkthroughIllusts()
     }
+}

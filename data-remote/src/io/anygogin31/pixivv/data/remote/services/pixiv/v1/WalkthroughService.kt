@@ -22,16 +22,15 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.di
+package io.anygogin31.pixivv.data.remote.services.pixiv.v1
 
-import io.anygogin31.pixivv.data.remote.sources.RecommendationsRemoteDataSource
-import io.anygogin31.pixivv.data.remote.sources.WalkthroughRemoteDataSource
-import org.koin.core.module.Module
-import org.koin.core.module.dsl.singleOf
-import org.koin.dsl.module
+import io.anygogin31.pixivv.core.remote.client.request
+import io.anygogin31.pixivv.data.remote.clients.pixiv.PixivApiClient
+import io.anygogin31.pixivv.data.remote.routes.pixiv.v1.walkthrough.Illusts
+import io.ktor.client.plugins.resources.get
 
-public val DataRemoteModule: Module =
-    module {
-        singleOf(::RecommendationsRemoteDataSource)
-        singleOf(::WalkthroughRemoteDataSource)
+internal suspend fun PixivApiClient.getWalkthroughIllusts(data: Illusts = Illusts()): Result<Unit> {
+    return request {
+        get(data)
     }
+}
