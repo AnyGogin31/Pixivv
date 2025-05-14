@@ -22,18 +22,23 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.di
+package io.anygogin31.pixivv.data.remote.sources
 
-import io.anygogin31.pixivv.core.remote.auth.di.CoreRemoteAuthModule
-import io.anygogin31.pixivv.core.storage.di.CoreStorageModule
-import io.anygogin31.pixivv.core.theme.di.CoreThemeModule
-import io.anygogin31.pixivv.data.remote.di.DataRemoteModule
-import org.koin.core.module.Module
+import io.anygogin31.pixivv.data.remote.clients.pixiv.PixivApiClient
+import io.anygogin31.pixivv.data.remote.services.pixiv.v1.getRecommendedIllust
+import io.anygogin31.pixivv.data.remote.services.pixiv.v1.getRecommendedManga
+import io.anygogin31.pixivv.data.remote.services.pixiv.v1.getRecommendedNovel
 
-public val PixivvModules: List<Module> =
-    listOf(
-        CoreRemoteAuthModule,
-        CoreStorageModule,
-        CoreThemeModule,
-        DataRemoteModule,
-    )
+public class RecommendationsRemoteDataSource {
+    public suspend fun getRecommendedIllust(): Result<Unit> {
+        return PixivApiClient.getRecommendedIllust()
+    }
+
+    public suspend fun getRecommendedManga(): Result<Unit> {
+        return PixivApiClient.getRecommendedManga()
+    }
+
+    public suspend fun getRecommendedNovel(): Result<Unit> {
+        return PixivApiClient.getRecommendedNovel()
+    }
+}
