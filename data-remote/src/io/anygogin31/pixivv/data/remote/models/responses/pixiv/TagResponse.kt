@@ -33,4 +33,6 @@ public data class TagResponse(
     public val name: String,
     @SerialName("translated_name")
     public val translatedName: String?,
+    @SerialName("added_by_uploaded_user")
+    public val addedByUploadedUser: Boolean? = null,
 )

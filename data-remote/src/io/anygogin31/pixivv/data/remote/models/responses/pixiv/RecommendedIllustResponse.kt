@@ -22,16 +22,21 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.services.pixiv.v1
+package io.anygogin31.pixivv.data.remote.models.responses.pixiv
 
-import io.anygogin31.pixivv.core.remote.client.request
-import io.anygogin31.pixivv.data.remote.clients.pixiv.PixivApiClient
-import io.anygogin31.pixivv.data.remote.models.responses.pixiv.RecommendedMangaResponse
-import io.anygogin31.pixivv.data.remote.routes.pixiv.v1.manga.Recommended
-import io.ktor.client.plugins.resources.get
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-internal suspend fun PixivApiClient.getRecommendedManga(data: Recommended = Recommended()): Result<RecommendedMangaResponse> {
-    return request {
-        get(data)
-    }
-}
+@Serializable
+public data class RecommendedIllustResponse(
+    @SerialName("illusts")
+    public val illusts: List<IllustResponse>,
+    @SerialName("ranking_illusts")
+    public val rankingIllusts: List<IllustResponse>,
+    @SerialName("contest_exists")
+    public val contestExists: Boolean,
+    @SerialName("privacy_policy")
+    public val privacyPolicy: PrivacyPolicyResponse?,
+    @SerialName("next_url")
+    public val nextUrl: String?,
+)

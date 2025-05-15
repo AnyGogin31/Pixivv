@@ -25,20 +25,23 @@
 package io.anygogin31.pixivv.data.remote.sources
 
 import io.anygogin31.pixivv.data.remote.clients.pixiv.PixivApiClient
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.RecommendedIllustResponse
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.RecommendedMangaResponse
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.RecommendedNovelResponse
 import io.anygogin31.pixivv.data.remote.services.pixiv.v1.getRecommendedIllust
 import io.anygogin31.pixivv.data.remote.services.pixiv.v1.getRecommendedManga
 import io.anygogin31.pixivv.data.remote.services.pixiv.v1.getRecommendedNovel
 
 public class RecommendationsRemoteDataSource {
-    public suspend fun getRecommendedIllust(): Result<Unit> {
+    public suspend fun getRecommendedIllust(): Result<RecommendedIllustResponse> {
         return PixivApiClient.getRecommendedIllust()
     }
 
-    public suspend fun getRecommendedManga(): Result<Unit> {
+    public suspend fun getRecommendedManga(): Result<RecommendedMangaResponse> {
         return PixivApiClient.getRecommendedManga()
     }
 
-    public suspend fun getRecommendedNovel(): Result<Unit> {
+    public suspend fun getRecommendedNovel(): Result<RecommendedNovelResponse> {
         return PixivApiClient.getRecommendedNovel()
     }
 }
