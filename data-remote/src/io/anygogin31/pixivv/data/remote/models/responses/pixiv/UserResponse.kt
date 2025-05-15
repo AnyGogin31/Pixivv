@@ -22,18 +22,23 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.di
+package io.anygogin31.pixivv.data.remote.models.responses.pixiv
 
-import io.anygogin31.pixivv.core.remote.auth.di.CoreRemoteAuthModule
-import io.anygogin31.pixivv.core.storage.di.CoreStorageModule
-import io.anygogin31.pixivv.core.theme.di.CoreThemeModule
-import io.anygogin31.pixivv.data.remote.di.DataRemoteModule
-import org.koin.core.module.Module
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-public val PixivvModules: List<Module> =
-    listOf(
-        CoreRemoteAuthModule,
-        CoreStorageModule,
-        CoreThemeModule,
-        DataRemoteModule,
-    )
+@Serializable
+public data class UserResponse(
+    @SerialName("id")
+    public val id: Long,
+    @SerialName("name")
+    public val name: String,
+    @SerialName("account")
+    public val account: String,
+    @SerialName("profile_image_urls")
+    public val profileImageUrls: ProfileImageUrlsResponse,
+    @SerialName("is_followed")
+    public val isFollowed: Boolean,
+    @SerialName("is_accept_request")
+    public val isAcceptRequest: Boolean,
+)

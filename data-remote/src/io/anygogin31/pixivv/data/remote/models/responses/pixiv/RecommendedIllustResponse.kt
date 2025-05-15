@@ -22,18 +22,21 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.di
+package io.anygogin31.pixivv.data.remote.models.responses.pixiv
 
-import io.anygogin31.pixivv.core.remote.auth.di.CoreRemoteAuthModule
-import io.anygogin31.pixivv.core.storage.di.CoreStorageModule
-import io.anygogin31.pixivv.core.theme.di.CoreThemeModule
-import io.anygogin31.pixivv.data.remote.di.DataRemoteModule
-import org.koin.core.module.Module
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-public val PixivvModules: List<Module> =
-    listOf(
-        CoreRemoteAuthModule,
-        CoreStorageModule,
-        CoreThemeModule,
-        DataRemoteModule,
-    )
+@Serializable
+public data class RecommendedIllustResponse(
+    @SerialName("illusts")
+    public val illusts: List<IllustResponse>,
+    @SerialName("ranking_illusts")
+    public val rankingIllusts: List<IllustResponse>,
+    @SerialName("contest_exists")
+    public val contestExists: Boolean,
+    @SerialName("privacy_policy")
+    public val privacyPolicy: PrivacyPolicyResponse?,
+    @SerialName("next_url")
+    public val nextUrl: String?,
+)

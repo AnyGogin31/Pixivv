@@ -22,18 +22,14 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.di
+package io.anygogin31.pixivv.data.remote.sources
 
-import io.anygogin31.pixivv.core.remote.auth.di.CoreRemoteAuthModule
-import io.anygogin31.pixivv.core.storage.di.CoreStorageModule
-import io.anygogin31.pixivv.core.theme.di.CoreThemeModule
-import io.anygogin31.pixivv.data.remote.di.DataRemoteModule
-import org.koin.core.module.Module
+import io.anygogin31.pixivv.data.remote.clients.pixiv.PixivApiClient
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.WalkthroughResponse
+import io.anygogin31.pixivv.data.remote.services.pixiv.v1.getWalkthroughIllusts
 
-public val PixivvModules: List<Module> =
-    listOf(
-        CoreRemoteAuthModule,
-        CoreStorageModule,
-        CoreThemeModule,
-        DataRemoteModule,
-    )
+public class WalkthroughRemoteDataSource {
+    public suspend fun getWalkthroughIllusts(): Result<WalkthroughResponse> {
+        return PixivApiClient.getWalkthroughIllusts()
+    }
+}

@@ -22,18 +22,12 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.di
+package io.anygogin31.pixivv.data.remote.routes.pixiv.v1.walkthrough
 
-import io.anygogin31.pixivv.core.remote.auth.di.CoreRemoteAuthModule
-import io.anygogin31.pixivv.core.storage.di.CoreStorageModule
-import io.anygogin31.pixivv.core.theme.di.CoreThemeModule
-import io.anygogin31.pixivv.data.remote.di.DataRemoteModule
-import org.koin.core.module.Module
+import io.anygogin31.pixivv.data.remote.routes.V1
+import io.ktor.resources.Resource
 
-public val PixivvModules: List<Module> =
-    listOf(
-        CoreRemoteAuthModule,
-        CoreStorageModule,
-        CoreThemeModule,
-        DataRemoteModule,
-    )
+@Resource("/walkthrough/illusts")
+internal data class Illusts(
+    public val parent: V1 = V1,
+)

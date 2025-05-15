@@ -6,6 +6,7 @@ dependencies:
   - ../core-remote-auth
   - ../core-storage
   - ../core-theme
+  - ../data-remote
   - $libs.koin.core
 
 settings:
