@@ -22,14 +22,13 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.sources
+package io.anygogin31.pixivv.data.remote.models.responses.pixiv
 
-import io.anygogin31.pixivv.data.remote.clients.pixiv.PixivApiClient
-import io.anygogin31.pixivv.data.remote.models.responses.pixiv.WalkthroughResponse
-import io.anygogin31.pixivv.data.remote.services.pixiv.v1.getWalkthroughIllusts
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-public class WalkthroughRemoteDataSource {
-    public suspend fun getWalkthroughIllusts(): Result<WalkthroughResponse> {
-        return PixivApiClient.getWalkthroughIllusts()
-    }
-}
+@Serializable
+public data class ProfileImageUrlsResponse(
+    @SerialName("medium")
+    public val medium: String,
+)

@@ -26,10 +26,11 @@ package io.anygogin31.pixivv.data.remote.services.pixiv.v1
 
 import io.anygogin31.pixivv.core.remote.client.request
 import io.anygogin31.pixivv.data.remote.clients.pixiv.PixivApiClient
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.WalkthroughResponse
 import io.anygogin31.pixivv.data.remote.routes.pixiv.v1.walkthrough.Illusts
 import io.ktor.client.plugins.resources.get
 
-internal suspend fun PixivApiClient.getWalkthroughIllusts(data: Illusts = Illusts()): Result<Unit> {
+internal suspend fun PixivApiClient.getWalkthroughIllusts(data: Illusts = Illusts()): Result<WalkthroughResponse> {
     return request {
         get(data)
     }
