@@ -3,6 +3,7 @@ product:
   platforms: [ jvm, android, iosArm64, iosSimulatorArm64, iosX64 ]
 
 dependencies:
+  - ../core-usecase
   - $libs.koin.core
 
 settings:

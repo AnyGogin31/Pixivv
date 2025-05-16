@@ -22,19 +22,29 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.di
+package io.anygogin31.pixivv.data.repositories
 
-import io.anygogin31.pixivv.data.repositories.RecommendationsRepositoryImpl
-import io.anygogin31.pixivv.data.repositories.WalkthroughRepositoryImpl
+import io.anygogin31.pixivv.data.remote.sources.RecommendationsRemoteDataSource
 import io.anygogin31.pixivv.domain.repositories.RecommendationsRepository
-import io.anygogin31.pixivv.domain.repositories.WalkthroughRepository
-import org.koin.core.module.Module
-import org.koin.core.module.dsl.bind
-import org.koin.core.module.dsl.singleOf
-import org.koin.dsl.module
 
-public val DataModule: Module =
-    module {
-        singleOf(::RecommendationsRepositoryImpl) { bind<RecommendationsRepository>() }
-        singleOf(::WalkthroughRepositoryImpl) { bind<WalkthroughRepository>() }
+internal class RecommendationsRepositoryImpl(
+    private val recommendationsRemoteDataSource: RecommendationsRemoteDataSource,
+) : RecommendationsRepository {
+    override suspend fun getRecommendedIllust(): Result<Unit> {
+        return runCatching {
+            recommendationsRemoteDataSource.getRecommendedIllust()
+        }
     }
+
+    override suspend fun getRecommendedManga(): Result<Unit> {
+        return runCatching {
+            recommendationsRemoteDataSource.getRecommendedManga()
+        }
+    }
+
+    override suspend fun getRecommendedNovel(): Result<Unit> {
+        return runCatching {
+            recommendationsRemoteDataSource.getRecommendedNovel()
+        }
+    }
+}

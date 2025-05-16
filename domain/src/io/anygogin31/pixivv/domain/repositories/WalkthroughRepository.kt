@@ -22,19 +22,8 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.di
+package io.anygogin31.pixivv.domain.repositories
 
-import io.anygogin31.pixivv.data.repositories.RecommendationsRepositoryImpl
-import io.anygogin31.pixivv.data.repositories.WalkthroughRepositoryImpl
-import io.anygogin31.pixivv.domain.repositories.RecommendationsRepository
-import io.anygogin31.pixivv.domain.repositories.WalkthroughRepository
-import org.koin.core.module.Module
-import org.koin.core.module.dsl.bind
-import org.koin.core.module.dsl.singleOf
-import org.koin.dsl.module
-
-public val DataModule: Module =
-    module {
-        singleOf(::RecommendationsRepositoryImpl) { bind<RecommendationsRepository>() }
-        singleOf(::WalkthroughRepositoryImpl) { bind<WalkthroughRepository>() }
-    }
+public interface WalkthroughRepository {
+    public suspend fun getWalkthroughIllusts(): Result<Unit>
+}
