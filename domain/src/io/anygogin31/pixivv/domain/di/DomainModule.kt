@@ -22,22 +22,11 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.di
+package io.anygogin31.pixivv.domain.di
 
-import io.anygogin31.pixivv.core.remote.auth.di.CoreRemoteAuthModule
-import io.anygogin31.pixivv.core.storage.di.CoreStorageModule
-import io.anygogin31.pixivv.core.theme.di.CoreThemeModule
-import io.anygogin31.pixivv.data.di.DataModule
-import io.anygogin31.pixivv.data.remote.di.DataRemoteModule
-import io.anygogin31.pixivv.domain.di.DomainModule
 import org.koin.core.module.Module
+import org.koin.dsl.module
 
-public val PixivvModules: List<Module> =
-    listOf(
-        CoreRemoteAuthModule,
-        CoreStorageModule,
-        CoreThemeModule,
-        DataModule,
-        DataRemoteModule,
-        DomainModule,
-    )
+public val DomainModule: Module =
+    module {
+    }
