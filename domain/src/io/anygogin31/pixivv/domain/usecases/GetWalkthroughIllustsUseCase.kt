@@ -22,6 +22,16 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.models.responses.pixiv
+package io.anygogin31.pixivv.domain.usecases
 
-public typealias RecommendedMangaResponse = RecommendedIllustResponse
+import io.anygogin31.pixivv.core.usecase.UseCase
+import io.anygogin31.pixivv.domain.models.WalkthroughModel
+import io.anygogin31.pixivv.domain.repositories.WalkthroughRepository
+
+public class GetWalkthroughIllustsUseCase(
+    private val walkthroughRepository: WalkthroughRepository,
+) : UseCase<WalkthroughModel> {
+    override suspend fun invoke(): Result<WalkthroughModel> {
+        return walkthroughRepository.getWalkthroughIllusts()
+    }
+}

@@ -29,7 +29,9 @@ include(":core-storage")
 include(":core-theme")
 include(":core-usecase")
 
+include(":data")
 include(":data-remote")
+include(":domain")
 
 include(":feature-desingsystem")
 include(":feature-navigationsuite")

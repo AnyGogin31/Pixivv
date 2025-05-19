@@ -22,6 +22,21 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.models.responses.pixiv
+package io.anygogin31.pixivv.data.mappers
 
-public typealias RecommendedMangaResponse = RecommendedIllustResponse
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.MetaPageResponse
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.MetaSinglePageResponse
+import io.anygogin31.pixivv.domain.models.MetaPageModel
+import io.anygogin31.pixivv.domain.models.MetaSinglePageModel
+
+internal fun MetaPageResponse.toDomain(): MetaPageModel {
+    return MetaPageModel(
+        imageUrls = imageUrls.toDomain(),
+    )
+}
+
+internal fun MetaSinglePageResponse.toDomain(): MetaSinglePageModel {
+    return MetaSinglePageModel(
+        originalImageUrl = originalImageUrl,
+    )
+}

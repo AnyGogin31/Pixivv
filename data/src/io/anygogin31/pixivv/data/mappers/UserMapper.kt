@@ -22,6 +22,18 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.models.responses.pixiv
+package io.anygogin31.pixivv.data.mappers
 
-public typealias RecommendedMangaResponse = RecommendedIllustResponse
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.UserResponse
+import io.anygogin31.pixivv.domain.models.UserModel
+
+internal fun UserResponse.toDomain(): UserModel {
+    return UserModel(
+        id = id,
+        name = name,
+        account = account,
+        profileImageUrls = profileImageUrls.toDomain(),
+        isFollowed = isFollowed,
+        isAcceptRequest = isAcceptRequest,
+    )
+}

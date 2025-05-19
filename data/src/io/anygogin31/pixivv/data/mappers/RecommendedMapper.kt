@@ -22,6 +22,28 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.models.responses.pixiv
+package io.anygogin31.pixivv.data.mappers
 
-public typealias RecommendedMangaResponse = RecommendedIllustResponse
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.RecommendedIllustResponse
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.RecommendedNovelResponse
+import io.anygogin31.pixivv.domain.models.RecommendedIllustModel
+import io.anygogin31.pixivv.domain.models.RecommendedNovelModel
+
+internal fun RecommendedIllustResponse.toDomain(): RecommendedIllustModel {
+    return RecommendedIllustModel(
+        illusts = illusts.map { it.toDomain() },
+        rankingIllusts = rankingIllusts.map { it.toDomain() },
+        contestExists = contestExists,
+        privacyPolicy = privacyPolicy?.toDomain(),
+        nextUrl = nextUrl,
+    )
+}
+
+internal fun RecommendedNovelResponse.toDomain(): RecommendedNovelModel {
+    return RecommendedNovelModel(
+        novels = novels.map { it.toDomain() },
+        rankingNovels = rankingNovels.map { it.toDomain() },
+        privacyPolicy = privacyPolicy?.toDomain(),
+        nextUrl = nextUrl,
+    )
+}

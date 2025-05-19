@@ -22,6 +22,16 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.models.responses.pixiv
+package io.anygogin31.pixivv.domain.usecases
 
-public typealias RecommendedMangaResponse = RecommendedIllustResponse
+import io.anygogin31.pixivv.core.usecase.UseCase
+import io.anygogin31.pixivv.domain.models.RecommendedNovelModel
+import io.anygogin31.pixivv.domain.repositories.RecommendationsRepository
+
+public class GetRecommendedNovelUseCase(
+    private val recommendationsRepository: RecommendationsRepository,
+) : UseCase<RecommendedNovelModel> {
+    override suspend fun invoke(): Result<RecommendedNovelModel> {
+        return recommendationsRepository.getRecommendedNovel()
+    }
+}

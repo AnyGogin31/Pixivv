@@ -3,14 +3,11 @@ product:
   platforms: [ jvm, android, iosArm64, iosSimulatorArm64, iosX64 ]
 
 dependencies:
-  - ../core-remote-auth
-  - ../core-storage
-  - ../core-theme
-  - ../data
   - ../data-remote
   - ../domain
   - $libs.koin.core
+  - $libs.kotlinx.datetime
 
 settings:
   android:
-    namespace: io.anygogin31.pixivv.shared.di
+    namespace: io.anygogin31.pixivv.data

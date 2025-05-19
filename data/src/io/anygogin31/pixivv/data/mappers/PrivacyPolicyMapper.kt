@@ -22,6 +22,15 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.models.responses.pixiv
+package io.anygogin31.pixivv.data.mappers
 
-public typealias RecommendedMangaResponse = RecommendedIllustResponse
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.PrivacyPolicyResponse
+import io.anygogin31.pixivv.domain.models.PrivacyPolicyModel
+
+internal fun PrivacyPolicyResponse.toDomain(): PrivacyPolicyModel {
+    return PrivacyPolicyModel(
+        version = version,
+        message = message,
+        url = url,
+    )
+}

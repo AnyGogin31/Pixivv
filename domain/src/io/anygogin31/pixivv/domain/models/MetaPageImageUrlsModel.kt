@@ -22,6 +22,11 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.models.responses.pixiv
+package io.anygogin31.pixivv.domain.models
 
-public typealias RecommendedMangaResponse = RecommendedIllustResponse
+public data class MetaPageImageUrlsModel(
+    public val squareMedium: String,
+    public val medium: String,
+    public val large: String,
+    public val original: String,
+)

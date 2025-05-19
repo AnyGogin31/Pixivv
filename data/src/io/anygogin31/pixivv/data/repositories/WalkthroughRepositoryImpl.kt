@@ -22,6 +22,19 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.models.responses.pixiv
+package io.anygogin31.pixivv.data.repositories
 
-public typealias RecommendedMangaResponse = RecommendedIllustResponse
+import io.anygogin31.pixivv.data.mappers.toDomain
+import io.anygogin31.pixivv.data.remote.sources.WalkthroughRemoteDataSource
+import io.anygogin31.pixivv.domain.models.WalkthroughModel
+import io.anygogin31.pixivv.domain.repositories.WalkthroughRepository
+
+internal class WalkthroughRepositoryImpl(
+    private val walkthroughRemoteDataSource: WalkthroughRemoteDataSource,
+) : WalkthroughRepository {
+    override suspend fun getWalkthroughIllusts(): Result<WalkthroughModel> {
+        return walkthroughRemoteDataSource
+            .getWalkthroughIllusts()
+            .map { it.toDomain() }
+    }
+}

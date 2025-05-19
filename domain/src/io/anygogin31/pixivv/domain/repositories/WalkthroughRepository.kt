@@ -22,6 +22,10 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.models.responses.pixiv
+package io.anygogin31.pixivv.domain.repositories
 
-public typealias RecommendedMangaResponse = RecommendedIllustResponse
+import io.anygogin31.pixivv.domain.models.WalkthroughModel
+
+public interface WalkthroughRepository {
+    public suspend fun getWalkthroughIllusts(): Result<WalkthroughModel>
+}

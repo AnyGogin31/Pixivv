@@ -8,8 +8,8 @@ dependencies:
   - ../core-remote-configs
   - ../core-remote-constants
   - ../core-remote-utils
-  - $libs.kotlinx.datetime
   - $libs.koin.core
+  - $libs.kotlinx.datetime
   - $libs.ktor.client.auth
   - $libs.ktor.client.core
   - $libs.ktor.client.resources

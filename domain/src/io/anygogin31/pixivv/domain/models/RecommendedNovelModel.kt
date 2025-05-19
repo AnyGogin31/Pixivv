@@ -22,6 +22,11 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.models.responses.pixiv
+package io.anygogin31.pixivv.domain.models
 
-public typealias RecommendedMangaResponse = RecommendedIllustResponse
+public data class RecommendedNovelModel(
+    public val novels: List<NovelModel>,
+    public val rankingNovels: List<NovelModel>,
+    public val privacyPolicy: PrivacyPolicyModel?,
+    public val nextUrl: String?,
+)

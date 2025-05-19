@@ -22,6 +22,37 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.models.responses.pixiv
+package io.anygogin31.pixivv.data.mappers
 
-public typealias RecommendedMangaResponse = RecommendedIllustResponse
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.IllustResponse
+import io.anygogin31.pixivv.domain.models.IllustModel
+
+internal fun IllustResponse.toDomain(): IllustModel {
+    return IllustModel(
+        id = id,
+        title = title,
+        type = type,
+        imageUrls = imageUrls.toDomain(),
+        caption = caption,
+        restrict = restrict,
+        user = user.toDomain(),
+        tags = tags.map { it.toDomain() },
+        tools = tools,
+        createDate = createDate,
+        pageCount = pageCount,
+        width = width,
+        height = height,
+        sanityLevel = sanityLevel,
+        xRestrict = xRestrict,
+        series = series?.toDomain(),
+        metaSinglePage = metaSinglePage.toDomain(),
+        metaPages = metaPages.map { it.toDomain() },
+        totalView = totalView,
+        totalBookmarks = totalBookmarks,
+        isBookmarked = isBookmarked,
+        visible = visible,
+        isMuted = isMuted,
+        illustAiType = illustAiType,
+        illustBookStyle = illustBookStyle,
+    )
+}

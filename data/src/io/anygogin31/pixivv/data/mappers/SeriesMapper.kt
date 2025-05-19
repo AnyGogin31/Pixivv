@@ -22,6 +22,14 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.models.responses.pixiv
+package io.anygogin31.pixivv.data.mappers
 
-public typealias RecommendedMangaResponse = RecommendedIllustResponse
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.SeriesResponse
+import io.anygogin31.pixivv.domain.models.SeriesModel
+
+internal fun SeriesResponse.toDomain(): SeriesModel {
+    return SeriesModel(
+        id = id,
+        title = title,
+    )
+}

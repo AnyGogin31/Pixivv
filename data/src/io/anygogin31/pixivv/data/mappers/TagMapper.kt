@@ -22,6 +22,15 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.models.responses.pixiv
+package io.anygogin31.pixivv.data.mappers
 
-public typealias RecommendedMangaResponse = RecommendedIllustResponse
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.TagResponse
+import io.anygogin31.pixivv.domain.models.TagModel
+
+internal fun TagResponse.toDomain(): TagModel {
+    return TagModel(
+        name = name,
+        translatedName = translatedName,
+        addedByUploadedUser = addedByUploadedUser,
+    )
+}

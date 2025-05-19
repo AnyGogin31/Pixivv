@@ -22,6 +22,14 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.models.responses.pixiv
+package io.anygogin31.pixivv.data.mappers
 
-public typealias RecommendedMangaResponse = RecommendedIllustResponse
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.WalkthroughResponse
+import io.anygogin31.pixivv.domain.models.WalkthroughModel
+
+internal fun WalkthroughResponse.toDomain(): WalkthroughModel {
+    return WalkthroughModel(
+        illusts = illusts.map { it.toDomain() },
+        nextUrl = nextUrl,
+    )
+}

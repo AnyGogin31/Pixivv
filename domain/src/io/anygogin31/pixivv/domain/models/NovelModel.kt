@@ -22,6 +22,31 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.data.remote.models.responses.pixiv
+package io.anygogin31.pixivv.domain.models
 
-public typealias RecommendedMangaResponse = RecommendedIllustResponse
+import kotlinx.datetime.Instant
+
+public data class NovelModel(
+    public val id: Long,
+    public val title: String,
+    public val caption: String,
+    public val restrict: Int,
+    public val xRestrict: Int,
+    public val isOriginal: Boolean,
+    public val imageUrls: ImageUrlsModel,
+    public val createDate: Instant,
+    public val tags: List<TagModel>,
+    public val pageCount: Int,
+    public val textLength: Int,
+    public val user: UserModel,
+    public val series: SeriesModel?,
+    public val isBookmarked: Boolean,
+    public val totalBookmarks: Int,
+    public val totalView: Int,
+    public val visible: Boolean,
+    public val totalComments: Int,
+    public val isMuted: Boolean,
+    public val isMypixivOnly: Boolean,
+    public val isXRestricted: Boolean,
+    public val novelAiType: Int,
+)
