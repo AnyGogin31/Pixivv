@@ -22,16 +22,9 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.domain.repositories
+package io.anygogin31.pixivv.domain.models
 
-import io.anygogin31.pixivv.domain.models.RecommendedIllustModel
-import io.anygogin31.pixivv.domain.models.RecommendedMangaModel
-import io.anygogin31.pixivv.domain.models.RecommendedNovelModel
-
-public interface RecommendationsRepository {
-    public suspend fun getRecommendedIllust(): Result<RecommendedIllustModel>
-
-    public suspend fun getRecommendedManga(): Result<RecommendedMangaModel>
-
-    public suspend fun getRecommendedNovel(): Result<RecommendedNovelModel>
-}
+public data class WalkthroughModel(
+    public val illusts: List<IllustModel>,
+    public val nextUrl: String?,
+)

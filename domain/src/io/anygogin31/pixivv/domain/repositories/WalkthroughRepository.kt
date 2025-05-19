@@ -24,6 +24,8 @@
 
 package io.anygogin31.pixivv.domain.repositories
 
+import io.anygogin31.pixivv.domain.models.WalkthroughModel
+
 public interface WalkthroughRepository {
-    public suspend fun getWalkthroughIllusts(): Result<Unit>
+    public suspend fun getWalkthroughIllusts(): Result<WalkthroughModel>
 }

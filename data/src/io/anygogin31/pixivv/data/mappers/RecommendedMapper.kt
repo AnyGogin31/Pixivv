@@ -22,16 +22,28 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.domain.repositories
+package io.anygogin31.pixivv.data.mappers
 
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.RecommendedIllustResponse
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.RecommendedNovelResponse
 import io.anygogin31.pixivv.domain.models.RecommendedIllustModel
-import io.anygogin31.pixivv.domain.models.RecommendedMangaModel
 import io.anygogin31.pixivv.domain.models.RecommendedNovelModel
 
-public interface RecommendationsRepository {
-    public suspend fun getRecommendedIllust(): Result<RecommendedIllustModel>
+internal fun RecommendedIllustResponse.toDomain(): RecommendedIllustModel {
+    return RecommendedIllustModel(
+        illusts = illusts.map { it.toDomain() },
+        rankingIllusts = rankingIllusts.map { it.toDomain() },
+        contestExists = contestExists,
+        privacyPolicy = privacyPolicy?.toDomain(),
+        nextUrl = nextUrl,
+    )
+}
 
-    public suspend fun getRecommendedManga(): Result<RecommendedMangaModel>
-
-    public suspend fun getRecommendedNovel(): Result<RecommendedNovelModel>
+internal fun RecommendedNovelResponse.toDomain(): RecommendedNovelModel {
+    return RecommendedNovelModel(
+        novels = novels.map { it.toDomain() },
+        rankingNovels = rankingNovels.map { it.toDomain() },
+        privacyPolicy = privacyPolicy?.toDomain(),
+        nextUrl = nextUrl,
+    )
 }

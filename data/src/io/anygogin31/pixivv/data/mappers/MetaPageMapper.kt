@@ -22,16 +22,21 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.domain.repositories
+package io.anygogin31.pixivv.data.mappers
 
-import io.anygogin31.pixivv.domain.models.RecommendedIllustModel
-import io.anygogin31.pixivv.domain.models.RecommendedMangaModel
-import io.anygogin31.pixivv.domain.models.RecommendedNovelModel
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.MetaPageResponse
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.MetaSinglePageResponse
+import io.anygogin31.pixivv.domain.models.MetaPageModel
+import io.anygogin31.pixivv.domain.models.MetaSinglePageModel
 
-public interface RecommendationsRepository {
-    public suspend fun getRecommendedIllust(): Result<RecommendedIllustModel>
+internal fun MetaPageResponse.toDomain(): MetaPageModel {
+    return MetaPageModel(
+        imageUrls = imageUrls.toDomain(),
+    )
+}
 
-    public suspend fun getRecommendedManga(): Result<RecommendedMangaModel>
-
-    public suspend fun getRecommendedNovel(): Result<RecommendedNovelModel>
+internal fun MetaSinglePageResponse.toDomain(): MetaSinglePageModel {
+    return MetaSinglePageModel(
+        originalImageUrl = originalImageUrl,
+    )
 }

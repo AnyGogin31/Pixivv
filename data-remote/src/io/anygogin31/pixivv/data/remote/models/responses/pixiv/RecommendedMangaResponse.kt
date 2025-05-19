@@ -24,4 +24,4 @@
 
 package io.anygogin31.pixivv.data.remote.models.responses.pixiv
 
-typealias RecommendedMangaResponse = RecommendedIllustResponse
+public typealias RecommendedMangaResponse = RecommendedIllustResponse

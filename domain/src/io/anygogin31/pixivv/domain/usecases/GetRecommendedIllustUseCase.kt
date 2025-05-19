@@ -25,12 +25,13 @@
 package io.anygogin31.pixivv.domain.usecases
 
 import io.anygogin31.pixivv.core.usecase.UseCase
+import io.anygogin31.pixivv.domain.models.RecommendedIllustModel
 import io.anygogin31.pixivv.domain.repositories.RecommendationsRepository
 
 public class GetRecommendedIllustUseCase(
     private val recommendationsRepository: RecommendationsRepository,
-) : UseCase<Unit> {
-    override suspend fun invoke(): Result<Unit> {
+) : UseCase<RecommendedIllustModel> {
+    override suspend fun invoke(): Result<RecommendedIllustModel> {
         return recommendationsRepository.getRecommendedIllust()
     }
 }

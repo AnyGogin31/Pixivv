@@ -25,12 +25,13 @@
 package io.anygogin31.pixivv.domain.usecases
 
 import io.anygogin31.pixivv.core.usecase.UseCase
+import io.anygogin31.pixivv.domain.models.WalkthroughModel
 import io.anygogin31.pixivv.domain.repositories.WalkthroughRepository
 
 public class GetWalkthroughIllustsUseCase(
     private val walkthroughRepository: WalkthroughRepository,
-) : UseCase<Unit> {
-    override suspend fun invoke(): Result<Unit> {
+) : UseCase<WalkthroughModel> {
+    override suspend fun invoke(): Result<WalkthroughModel> {
         return walkthroughRepository.getWalkthroughIllusts()
     }
 }

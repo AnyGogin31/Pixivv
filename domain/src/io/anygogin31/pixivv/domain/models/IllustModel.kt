@@ -22,16 +22,34 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.domain.repositories
+package io.anygogin31.pixivv.domain.models
 
-import io.anygogin31.pixivv.domain.models.RecommendedIllustModel
-import io.anygogin31.pixivv.domain.models.RecommendedMangaModel
-import io.anygogin31.pixivv.domain.models.RecommendedNovelModel
+import kotlinx.datetime.Instant
 
-public interface RecommendationsRepository {
-    public suspend fun getRecommendedIllust(): Result<RecommendedIllustModel>
-
-    public suspend fun getRecommendedManga(): Result<RecommendedMangaModel>
-
-    public suspend fun getRecommendedNovel(): Result<RecommendedNovelModel>
-}
+public data class IllustModel(
+    public val id: Long,
+    public val title: String,
+    public val type: String,
+    public val imageUrls: ImageUrlsModel,
+    public val caption: String,
+    public val restrict: Int,
+    public val user: UserModel,
+    public val tags: List<TagModel>,
+    public val tools: List<String>,
+    public val createDate: Instant,
+    public val pageCount: Int,
+    public val width: Int,
+    public val height: Int,
+    public val sanityLevel: Int,
+    public val xRestrict: Int,
+    public val series: SeriesModel?,
+    public val metaSinglePage: MetaSinglePageModel,
+    public val metaPages: List<MetaPageModel>,
+    public val totalView: Int,
+    public val totalBookmarks: Int,
+    public val isBookmarked: Boolean,
+    public val visible: Boolean,
+    public val isMuted: Boolean,
+    public val illustAiType: Int,
+    public val illustBookStyle: Int,
+)

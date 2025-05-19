@@ -22,16 +22,34 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.domain.repositories
+package io.anygogin31.pixivv.data.mappers
 
-import io.anygogin31.pixivv.domain.models.RecommendedIllustModel
-import io.anygogin31.pixivv.domain.models.RecommendedMangaModel
-import io.anygogin31.pixivv.domain.models.RecommendedNovelModel
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.ImageUrlsResponse
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.MetaPageImageUrlsResponse
+import io.anygogin31.pixivv.data.remote.models.responses.pixiv.ProfileImageUrlsResponse
+import io.anygogin31.pixivv.domain.models.ImageUrlsModel
+import io.anygogin31.pixivv.domain.models.MetaPageImageUrlsModel
+import io.anygogin31.pixivv.domain.models.ProfileImageUrlsModel
 
-public interface RecommendationsRepository {
-    public suspend fun getRecommendedIllust(): Result<RecommendedIllustModel>
+internal fun ImageUrlsResponse.toDomain(): ImageUrlsModel {
+    return ImageUrlsModel(
+        large = large,
+        medium = medium,
+        squareMedium = squareMedium,
+    )
+}
 
-    public suspend fun getRecommendedManga(): Result<RecommendedMangaModel>
+internal fun MetaPageImageUrlsResponse.toDomain(): MetaPageImageUrlsModel {
+    return MetaPageImageUrlsModel(
+        squareMedium = squareMedium,
+        medium = medium,
+        large = large,
+        original = original,
+    )
+}
 
-    public suspend fun getRecommendedNovel(): Result<RecommendedNovelModel>
+internal fun ProfileImageUrlsResponse.toDomain(): ProfileImageUrlsModel {
+    return ProfileImageUrlsModel(
+        medium = medium,
+    )
 }

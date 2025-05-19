@@ -24,27 +24,31 @@
 
 package io.anygogin31.pixivv.data.repositories
 
+import io.anygogin31.pixivv.data.mappers.toDomain
 import io.anygogin31.pixivv.data.remote.sources.RecommendationsRemoteDataSource
+import io.anygogin31.pixivv.domain.models.RecommendedIllustModel
+import io.anygogin31.pixivv.domain.models.RecommendedMangaModel
+import io.anygogin31.pixivv.domain.models.RecommendedNovelModel
 import io.anygogin31.pixivv.domain.repositories.RecommendationsRepository
 
 internal class RecommendationsRepositoryImpl(
     private val recommendationsRemoteDataSource: RecommendationsRemoteDataSource,
 ) : RecommendationsRepository {
-    override suspend fun getRecommendedIllust(): Result<Unit> {
-        return runCatching {
-            recommendationsRemoteDataSource.getRecommendedIllust()
-        }
+    override suspend fun getRecommendedIllust(): Result<RecommendedIllustModel> {
+        return recommendationsRemoteDataSource
+            .getRecommendedIllust()
+            .map { it.toDomain() }
     }
 
-    override suspend fun getRecommendedManga(): Result<Unit> {
-        return runCatching {
-            recommendationsRemoteDataSource.getRecommendedManga()
-        }
+    override suspend fun getRecommendedManga(): Result<RecommendedMangaModel> {
+        return recommendationsRemoteDataSource
+            .getRecommendedManga()
+            .map { it.toDomain() }
     }
 
-    override suspend fun getRecommendedNovel(): Result<Unit> {
-        return runCatching {
-            recommendationsRemoteDataSource.getRecommendedNovel()
-        }
+    override suspend fun getRecommendedNovel(): Result<RecommendedNovelModel> {
+        return recommendationsRemoteDataSource
+            .getRecommendedNovel()
+            .map { it.toDomain() }
     }
 }

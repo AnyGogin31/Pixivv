@@ -25,12 +25,13 @@
 package io.anygogin31.pixivv.domain.usecases
 
 import io.anygogin31.pixivv.core.usecase.UseCase
+import io.anygogin31.pixivv.domain.models.RecommendedNovelModel
 import io.anygogin31.pixivv.domain.repositories.RecommendationsRepository
 
 public class GetRecommendedNovelUseCase(
     private val recommendationsRepository: RecommendationsRepository,
-) : UseCase<Unit> {
-    override suspend fun invoke(): Result<Unit> {
+) : UseCase<RecommendedNovelModel> {
+    override suspend fun invoke(): Result<RecommendedNovelModel> {
         return recommendationsRepository.getRecommendedNovel()
     }
 }
