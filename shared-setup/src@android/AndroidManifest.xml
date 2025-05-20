@@ -34,6 +34,10 @@
             tools:node="merge">
 
             <meta-data
+                android:name="io.anygogin31.pixivv.shared.setup.CoilInitializer"
+                android:value="androidx.startup" />
+
+            <meta-data
                 android:name="io.anygogin31.pixivv.shared.setup.KoinInitializer"
                 android:value="androidx.startup" />
 

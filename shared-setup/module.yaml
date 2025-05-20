@@ -11,12 +11,15 @@ dependencies:
 
 dependencies@android:
   - $libs.androidx.startup
+  - $libs.coil
   - $libs.koin.android
 
 dependencies@jvm:
+  - $libs.coil.compose
   - $libs.koin.compose
 
 dependencies@ios:
+  - $libs.coil.compose
   - $libs.koin.compose
 
 settings:
