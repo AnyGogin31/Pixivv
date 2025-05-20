@@ -12,7 +12,7 @@ androidx-startup = "1.2.0"
 brotli = "0.1.2"
 
 # Coil
-coil = "3.2.0"
+coil = "3.0.4"
 
 # Compose
 compose-adaptive = "1.1.0"
