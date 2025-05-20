@@ -22,21 +22,19 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.core.image.loader
+package io.anygogin31.pixivv.core.image.loader.components
 
 import coil3.ComponentRegistry
-import io.anygogin31.pixivv.core.image.loader.components.addImageUrlsMapper
-import io.anygogin31.pixivv.core.image.loader.components.addKtorNetworkFetcher
-import io.anygogin31.pixivv.core.image.loader.components.addMetaPageImageUrlsMapper
-import io.anygogin31.pixivv.core.image.loader.components.addMetaSinglePageMapper
-import io.anygogin31.pixivv.core.image.loader.components.addProfileImageUrlsMapper
-import io.anygogin31.pixivv.core.image.loader.components.addRefererHeaderInterceptor
+import coil3.network.ktor3.KtorNetworkFetcherFactory
+import io.anygogin31.pixivv.core.remote.client.ApiClient
+import io.anygogin31.pixivv.core.remote.client.apiClient
 
-internal fun ComponentRegistry.Builder.provideImageLoaderComponents() {
-    addImageUrlsMapper()
-    addKtorNetworkFetcher()
-    addMetaPageImageUrlsMapper()
-    addMetaSinglePageMapper()
-    addProfileImageUrlsMapper()
-    addRefererHeaderInterceptor()
+private object KtorNetworkClient : ApiClient by apiClient()
+
+internal fun ComponentRegistry.Builder.addKtorNetworkFetcher() {
+    add(
+        KtorNetworkFetcherFactory(
+            httpClient = KtorNetworkClient.client,
+        ),
+    )
 }
