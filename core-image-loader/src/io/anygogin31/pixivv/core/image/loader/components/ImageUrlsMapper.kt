@@ -22,15 +22,22 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.setup
+package io.anygogin31.pixivv.core.image.loader.components
 
-import androidx.compose.runtime.Composable
-import coil3.compose.setSingletonImageLoaderFactory
-import io.anygogin31.pixivv.core.image.loader.provideImageLoader
+import coil3.ComponentRegistry
+import coil3.map.Mapper
+import coil3.request.Options
+import io.anygogin31.pixivv.domain.models.ImageUrlsModel
 
-@Composable
-internal actual fun PixivvImageLoaderProvider() {
-    setSingletonImageLoaderFactory {
-        provideImageLoader(it)
+private object ImageUrlsMapper : Mapper<ImageUrlsModel, String> {
+    override fun map(
+        data: ImageUrlsModel,
+        options: Options,
+    ): String? {
+        return data.medium
     }
+}
+
+internal fun ComponentRegistry.Builder.addImageUrlsMapper() {
+    add(ImageUrlsMapper)
 }

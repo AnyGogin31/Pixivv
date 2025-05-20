@@ -22,15 +22,19 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.setup
+package io.anygogin31.pixivv.core.image.loader
 
-import androidx.compose.runtime.Composable
-import coil3.compose.setSingletonImageLoaderFactory
-import io.anygogin31.pixivv.core.image.loader.provideImageLoader
+import coil3.ComponentRegistry
+import io.anygogin31.pixivv.core.image.loader.components.addImageUrlsMapper
+import io.anygogin31.pixivv.core.image.loader.components.addMetaPageImageUrlsMapper
+import io.anygogin31.pixivv.core.image.loader.components.addMetaSinglePageMapper
+import io.anygogin31.pixivv.core.image.loader.components.addProfileImageUrlsMapper
+import io.anygogin31.pixivv.core.image.loader.components.addRefererHeaderInterceptor
 
-@Composable
-internal actual fun PixivvImageLoaderProvider() {
-    setSingletonImageLoaderFactory {
-        provideImageLoader(it)
-    }
+internal fun ComponentRegistry.Builder.provideImageLoaderComponents() {
+    addImageUrlsMapper()
+    addMetaPageImageUrlsMapper()
+    addMetaSinglePageMapper()
+    addProfileImageUrlsMapper()
+    addRefererHeaderInterceptor()
 }

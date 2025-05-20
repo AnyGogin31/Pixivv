@@ -27,11 +27,12 @@ package io.anygogin31.pixivv.shared.setup
 import android.content.Context
 import androidx.startup.Initializer
 import coil3.SingletonImageLoader
+import io.anygogin31.pixivv.core.image.loader.provideImageLoader
 
 internal class CoilInitializer : Initializer<Unit> {
     override fun create(context: Context) {
         SingletonImageLoader.setSafe {
-            TODO("Not yet implemented")
+            provideImageLoader(it)
         }
     }
 
