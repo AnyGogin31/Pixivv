@@ -9,6 +9,7 @@ dependencies:
   - ../data
   - ../data-remote
   - ../domain
+  - ../screen-walkthrough
   - $libs.koin.core
 
 settings:

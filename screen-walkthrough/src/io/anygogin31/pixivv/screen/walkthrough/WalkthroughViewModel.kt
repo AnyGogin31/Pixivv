@@ -26,13 +26,13 @@ package io.anygogin31.pixivv.screen.walkthrough
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.anygogin31.pixivv.domain.models.WalkthroughModel
+import io.anygogin31.pixivv.domain.usecases.GetWalkthroughIllustsUseCase
 import io.anygogin31.pixivv.screen.walkthrough.models.page.WalkthroughPage
 import io.anygogin31.pixivv.screen.walkthrough.pages.AuthorizationPage
 import io.anygogin31.pixivv.screen.walkthrough.pages.ClientPolicyPage
 import io.anygogin31.pixivv.screen.walkthrough.pages.ServicePolicyPage
 import io.anygogin31.pixivv.screen.walkthrough.pages.WelcomePage
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -41,9 +41,10 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-public class WalkthroughViewModel : ViewModel() {
+public class WalkthroughViewModel(
+    private val getWalkthroughIllustsUseCase: GetWalkthroughIllustsUseCase,
+) : ViewModel() {
     private val _state = MutableStateFlow(WalkthroughState())
     public val state: StateFlow<WalkthroughState> =
         _state
@@ -58,14 +59,13 @@ public class WalkthroughViewModel : ViewModel() {
 
     private fun loadState() {
         viewModelScope.launch {
-            async {
-                loadPages()
-            }
+            async { loadPages() }
+            async { loadWalkthroughIllust() }
         }
     }
 
-    private suspend fun loadPages() {
-        withContext(Dispatchers.IO) {
+    private fun loadPages() {
+        viewModelScope.launch {
             _state.update {
                 it.copy(
                     pages =
@@ -82,6 +82,19 @@ public class WalkthroughViewModel : ViewModel() {
                         ),
                 )
             }
+        }
+    }
+
+    private fun loadWalkthroughIllust() {
+        viewModelScope.launch {
+            getWalkthroughIllustsUseCase.invoke()
+                .onSuccess { walkthroughModel: WalkthroughModel ->
+                    _state.update {
+                        it.copy(
+                            walkthroughIllust = walkthroughModel.illusts,
+                        )
+                    }
+                }
         }
     }
 

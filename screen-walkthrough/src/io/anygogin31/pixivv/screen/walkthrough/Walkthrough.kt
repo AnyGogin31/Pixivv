@@ -45,7 +45,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import io.anygogin31.pixivv.feature.pager.HorizontalPager
 import io.anygogin31.pixivv.feature.pager.PagerIndicator
 import io.anygogin31.pixivv.feature.pager.PagerIndicatorIcon
@@ -63,6 +62,7 @@ import io.anygogin31.pixivv.screen.walkthrough.pages.WelcomePage
 import io.anygogin31.pixivv.screen.walkthrough.pages.WelcomePageContent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import org.koin.compose.viewmodel.koinViewModel
 
 // TODO: Refactor page unlocking logic for better clarity and efficiency
 // TODO: Finalize background implementation using Pixiv illustrations for all pages
@@ -70,7 +70,7 @@ import kotlinx.coroutines.launch
 @Composable
 public fun WalkthroughRoot(
     modifier: Modifier = Modifier,
-    viewModel: WalkthroughViewModel = viewModel(),
+    viewModel: WalkthroughViewModel = koinViewModel(),
 ) {
     val state: WalkthroughState by viewModel.state.collectAsStateWithLifecycle()
 
