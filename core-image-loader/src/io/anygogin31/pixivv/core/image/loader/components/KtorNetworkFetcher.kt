@@ -22,17 +22,19 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.setup
+package io.anygogin31.pixivv.core.image.loader.components
 
-import androidx.compose.runtime.Composable
-import io.anygogin31.pixivv.feature.desingsystem.PixivvTheme
+import coil3.ComponentRegistry
+import coil3.network.ktor3.KtorNetworkFetcherFactory
+import io.anygogin31.pixivv.core.remote.client.ApiClient
+import io.anygogin31.pixivv.core.remote.client.apiClient
 
-@Composable
-public fun PixivvSetupProvider(content: @Composable () -> Unit) {
-    PixivvModulesProvider {
-        PixivvImageLoaderProvider()
-        PixivvTheme {
-            content()
-        }
-    }
+private object KtorNetworkClient : ApiClient by apiClient()
+
+internal fun ComponentRegistry.Builder.addKtorNetworkFetcher() {
+    add(
+        KtorNetworkFetcherFactory(
+            httpClient = KtorNetworkClient.client,
+        ),
+    )
 }

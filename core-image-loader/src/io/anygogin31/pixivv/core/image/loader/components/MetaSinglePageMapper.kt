@@ -22,17 +22,22 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.setup
+package io.anygogin31.pixivv.core.image.loader.components
 
-import androidx.compose.runtime.Composable
-import io.anygogin31.pixivv.feature.desingsystem.PixivvTheme
+import coil3.ComponentRegistry
+import coil3.map.Mapper
+import coil3.request.Options
+import io.anygogin31.pixivv.domain.models.MetaSinglePageModel
 
-@Composable
-public fun PixivvSetupProvider(content: @Composable () -> Unit) {
-    PixivvModulesProvider {
-        PixivvImageLoaderProvider()
-        PixivvTheme {
-            content()
-        }
+private object MetaSinglePageMapper : Mapper<MetaSinglePageModel, String> {
+    override fun map(
+        data: MetaSinglePageModel,
+        options: Options,
+    ): String? {
+        return data.originalImageUrl
     }
+}
+
+internal fun ComponentRegistry.Builder.addMetaSinglePageMapper() {
+    add(MetaSinglePageMapper)
 }

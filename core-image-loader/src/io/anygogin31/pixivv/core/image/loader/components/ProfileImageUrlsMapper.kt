@@ -22,17 +22,22 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.setup
+package io.anygogin31.pixivv.core.image.loader.components
 
-import androidx.compose.runtime.Composable
-import io.anygogin31.pixivv.feature.desingsystem.PixivvTheme
+import coil3.ComponentRegistry
+import coil3.map.Mapper
+import coil3.request.Options
+import io.anygogin31.pixivv.domain.models.ProfileImageUrlsModel
 
-@Composable
-public fun PixivvSetupProvider(content: @Composable () -> Unit) {
-    PixivvModulesProvider {
-        PixivvImageLoaderProvider()
-        PixivvTheme {
-            content()
-        }
+private object ProfileImageUrlsMapper : Mapper<ProfileImageUrlsModel, String> {
+    override fun map(
+        data: ProfileImageUrlsModel,
+        options: Options,
+    ): String? {
+        return data.medium
     }
+}
+
+internal fun ComponentRegistry.Builder.addProfileImageUrlsMapper() {
+    add(ProfileImageUrlsMapper)
 }

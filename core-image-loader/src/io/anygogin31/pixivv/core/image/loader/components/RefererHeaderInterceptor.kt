@@ -22,17 +22,31 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.setup
+package io.anygogin31.pixivv.core.image.loader.components
 
-import androidx.compose.runtime.Composable
-import io.anygogin31.pixivv.feature.desingsystem.PixivvTheme
+import coil3.ComponentRegistry
+import coil3.intercept.Interceptor
+import coil3.network.NetworkHeaders
+import coil3.network.httpHeaders
+import coil3.request.ImageRequest
+import coil3.request.ImageResult
+import io.anygogin31.pixivv.core.remote.constants.PIXIV_API_URL
+import io.ktor.http.HttpHeaders
 
-@Composable
-public fun PixivvSetupProvider(content: @Composable () -> Unit) {
-    PixivvModulesProvider {
-        PixivvImageLoaderProvider()
-        PixivvTheme {
-            content()
-        }
+private object RefererHeaderInterceptor : Interceptor {
+    override suspend fun intercept(chain: Interceptor.Chain): ImageResult {
+        val headers: NetworkHeaders =
+            NetworkHeaders.Builder()
+                .add(HttpHeaders.Referrer, PIXIV_API_URL)
+                .build()
+        val request: ImageRequest =
+            chain.request.newBuilder()
+                .httpHeaders(headers)
+                .build()
+        return chain.withRequest(request).proceed()
     }
+}
+
+internal fun ComponentRegistry.Builder.addRefererHeaderInterceptor() {
+    add(RefererHeaderInterceptor)
 }

@@ -17,6 +17,7 @@ include(":app-android")
 include(":app-ios")
 include(":app-jvm")
 
+include(":core-image-loader")
 include(":core-remote-auth")
 include(":core-remote-brotli")
 include(":core-remote-configs")

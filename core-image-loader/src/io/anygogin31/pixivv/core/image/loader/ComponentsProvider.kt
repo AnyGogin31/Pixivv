@@ -22,17 +22,21 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.setup
+package io.anygogin31.pixivv.core.image.loader
 
-import androidx.compose.runtime.Composable
-import io.anygogin31.pixivv.feature.desingsystem.PixivvTheme
+import coil3.ComponentRegistry
+import io.anygogin31.pixivv.core.image.loader.components.addImageUrlsMapper
+import io.anygogin31.pixivv.core.image.loader.components.addKtorNetworkFetcher
+import io.anygogin31.pixivv.core.image.loader.components.addMetaPageImageUrlsMapper
+import io.anygogin31.pixivv.core.image.loader.components.addMetaSinglePageMapper
+import io.anygogin31.pixivv.core.image.loader.components.addProfileImageUrlsMapper
+import io.anygogin31.pixivv.core.image.loader.components.addRefererHeaderInterceptor
 
-@Composable
-public fun PixivvSetupProvider(content: @Composable () -> Unit) {
-    PixivvModulesProvider {
-        PixivvImageLoaderProvider()
-        PixivvTheme {
-            content()
-        }
-    }
+internal fun ComponentRegistry.Builder.provideImageLoaderComponents() {
+    addImageUrlsMapper()
+    addKtorNetworkFetcher()
+    addMetaPageImageUrlsMapper()
+    addMetaSinglePageMapper()
+    addProfileImageUrlsMapper()
+    addRefererHeaderInterceptor()
 }

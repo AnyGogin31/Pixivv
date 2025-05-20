@@ -22,17 +22,25 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.shared.setup
+package io.anygogin31.pixivv.core.image.loader
 
-import androidx.compose.runtime.Composable
-import io.anygogin31.pixivv.feature.desingsystem.PixivvTheme
+import coil3.ImageLoader
+import coil3.PlatformContext
+import coil3.memory.MemoryCache
+import coil3.request.CachePolicy
+import coil3.request.crossfade
 
-@Composable
-public fun PixivvSetupProvider(content: @Composable () -> Unit) {
-    PixivvModulesProvider {
-        PixivvImageLoaderProvider()
-        PixivvTheme {
-            content()
+public fun provideImageLoader(context: PlatformContext): ImageLoader {
+    return ImageLoader.Builder(context)
+        .crossfade(true)
+        .components {
+            provideImageLoaderComponents()
         }
-    }
+        .memoryCache {
+            MemoryCache.Builder()
+                .maxSizePercent(context)
+                .build()
+        }
+        .diskCachePolicy(CachePolicy.ENABLED)
+        .build()
 }

@@ -25,14 +25,12 @@
 package io.anygogin31.pixivv.shared.setup
 
 import androidx.compose.runtime.Composable
-import io.anygogin31.pixivv.feature.desingsystem.PixivvTheme
+import coil3.compose.setSingletonImageLoaderFactory
+import io.anygogin31.pixivv.core.image.loader.provideImageLoader
 
 @Composable
-public fun PixivvSetupProvider(content: @Composable () -> Unit) {
-    PixivvModulesProvider {
-        PixivvImageLoaderProvider()
-        PixivvTheme {
-            content()
-        }
+internal actual fun PixivvImageLoaderProvider() {
+    setSingletonImageLoaderFactory {
+        provideImageLoader(it)
     }
 }
