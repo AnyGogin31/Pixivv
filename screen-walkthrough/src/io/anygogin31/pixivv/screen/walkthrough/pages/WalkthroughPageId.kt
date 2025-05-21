@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.screen.walkthrough.models.page
+package io.anygogin31.pixivv.screen.walkthrough.pages
 
 import kotlin.jvm.JvmInline
 

@@ -22,8 +22,15 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.screen.walkthrough.models.button
+package io.anygogin31.pixivv.screen.walkthrough.pages
 
-public sealed interface ButtonStyle
+import androidx.compose.runtime.Composable
 
-internal data object Transparent : ButtonStyle
+public interface WalkthroughPageNode {
+    public val id: WalkthroughPageId
+    public val next: WalkthroughPageNode?
+    public var isUnlocked: Boolean
+
+    @Composable
+    public fun Content()
+}

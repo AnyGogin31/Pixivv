@@ -40,7 +40,6 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -49,22 +48,12 @@ import io.anygogin31.pixivv.feature.pager.HorizontalPager
 import io.anygogin31.pixivv.feature.pager.PagerIndicator
 import io.anygogin31.pixivv.feature.pager.PagerIndicatorIcon
 import io.anygogin31.pixivv.feature.uri.UriLauncherProvider
-import io.anygogin31.pixivv.screen.walkthrough.models.page.WalkthroughPage
-import io.anygogin31.pixivv.screen.walkthrough.pages.AuthorizationPage
-import io.anygogin31.pixivv.screen.walkthrough.pages.AuthorizationPageContent
-import io.anygogin31.pixivv.screen.walkthrough.pages.ClientPolicyPage
-import io.anygogin31.pixivv.screen.walkthrough.pages.ClientPolicyPageContent
-import io.anygogin31.pixivv.screen.walkthrough.pages.LockedPage
-import io.anygogin31.pixivv.screen.walkthrough.pages.LockedPageContent
-import io.anygogin31.pixivv.screen.walkthrough.pages.ServicePolicyPage
-import io.anygogin31.pixivv.screen.walkthrough.pages.ServicePolicyPageContent
-import io.anygogin31.pixivv.screen.walkthrough.pages.WelcomePage
-import io.anygogin31.pixivv.screen.walkthrough.pages.WelcomePageContent
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
+import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageNode
+import io.anygogin31.pixivv.screen.walkthrough.pages.auth.AuthorizationPage
+import io.anygogin31.pixivv.screen.walkthrough.pages.locked.LockedPageContent
 import org.koin.compose.viewmodel.koinViewModel
 
-// TODO: Refactor page unlocking logic for better clarity and efficiency
+// TODO: Refactor page unlocking logic for better clarity and efficiency (done 1/2)
 // TODO: Finalize background implementation using Pixiv illustrations for all pages
 
 @Composable
@@ -77,7 +66,6 @@ public fun WalkthroughRoot(
     WalkthroughScreen(
         modifier = modifier,
         state = state,
-        onAction = viewModel::onAction,
     )
 }
 
@@ -86,15 +74,13 @@ public fun WalkthroughRoot(
 public fun WalkthroughScreen(
     modifier: Modifier = Modifier,
     state: WalkthroughState,
-    onAction: (action: WalkthroughAction) -> Unit,
 ) {
     UriLauncherProvider {
-        val pageCount = fun(): Int = state.pages.size
-        val pagerState: PagerState = rememberPagerState(pageCount = pageCount)
+        val pages: List<WalkthroughPageNode> = generateSequence(state.pages) { it.next }.toList()
+        val pageCount = pages.size
+        val pagerState: PagerState = rememberPagerState(pageCount = { pageCount })
 
-        val getPageByIndex = fun(index: Int): WalkthroughPage = state.pages[index]
-
-        val coroutineScope: CoroutineScope = rememberCoroutineScope()
+        val getPageByIndex = fun(index: Int): WalkthroughPageNode = pages[index]
 
         Column(
             modifier = modifier.fillMaxSize(),
@@ -104,62 +90,18 @@ public fun WalkthroughScreen(
             HorizontalPager(
                 state = pagerState,
                 modifier = Modifier.weight(1f),
-                key = { index: Int ->
-                    getPageByIndex(index).id.value
-                },
+                key = { index: Int -> getPageByIndex(index).id.value },
             ) { index: Int ->
-                val page: WalkthroughPage = getPageByIndex(index)
-                val isUnlocked: Boolean = state.unlockedPages.contains(page)
-
-                if (!isUnlocked) {
-                    LockedPageContent(
-                        data = LockedPage,
-                        onBack = {
-                            coroutineScope.launch {
-                                pagerState.animateScrollToPage(pagerState.currentPage - 1)
-                            }
-                        },
-                    )
+                val page: WalkthroughPageNode = getPageByIndex(index)
+                if (page.isUnlocked) {
+                    page.Content()
                 } else {
-                    when (page) {
-                        is WelcomePage -> WelcomePageContent(page)
-
-                        is ServicePolicyPage -> {
-                            ServicePolicyPageContent(
-                                data = page,
-                                onAgree = {
-                                    coroutineScope.launch {
-                                        pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                                    }
-                                    onAction(WalkthroughAction.UnlockPage(getPageByIndex(index + 1)))
-                                },
-                            )
-                        }
-
-                        is ClientPolicyPage -> {
-                            ClientPolicyPageContent(
-                                data = page,
-                                onAgree = {
-                                    coroutineScope.launch {
-                                        pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                                    }
-                                    onAction(WalkthroughAction.UnlockPage(getPageByIndex(index + 1)))
-                                },
-                            )
-                        }
-
-                        is AuthorizationPage -> AuthorizationPageContent(page)
-                    }
+                    LockedPageContent()
                 }
             }
 
             AnimatedVisibility(
-                visible =
-                    !(
-                        state.unlockedPages.contains(state.pages.lastOrNull()) &&
-                            pagerState.currentPage == state.pages.size - 1
-                    ) &&
-                        state.pages.isNotEmpty(),
+                visible = !(pages.last().isUnlocked && pagerState.currentPage == pageCount - 1),
                 enter = slideInVertically(initialOffsetY = { it }),
                 exit = slideOutVertically(targetOffsetY = { it }),
             ) {
@@ -167,8 +109,7 @@ public fun WalkthroughScreen(
                     pagerState = pagerState,
                     modifier = Modifier.padding(16.dp),
                 ) { index: Int ->
-                    val page: WalkthroughPage = getPageByIndex(index)
-                    val isUnlocked: Boolean = state.unlockedPages.contains(page)
+                    val page: WalkthroughPageNode = getPageByIndex(index)
                     val isCurrentPage: Boolean = pagerState.currentPage == index
                     PagerIndicatorIcon(
                         color =
@@ -179,8 +120,8 @@ public fun WalkthroughScreen(
                             },
                         icon =
                             when {
-                                !isUnlocked -> Icons.Default.Lock
-                                page is AuthorizationPage && isUnlocked -> Icons.Default.Person
+                                !page.isUnlocked -> Icons.Default.Lock
+                                page is AuthorizationPage && page.isUnlocked -> Icons.Default.Person
                                 else -> null
                             },
                     )

@@ -22,29 +22,27 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.screen.walkthrough.pages
+package io.anygogin31.pixivv.screen.walkthrough.pages.auth
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.anygogin31.pixivv.feature.uri.LocalUriLauncher
 import io.anygogin31.pixivv.feature.uri.UriLauncher
-import io.anygogin31.pixivv.screen.walkthrough.components.ActionButton
-import io.anygogin31.pixivv.screen.walkthrough.models.button.Button
-import io.anygogin31.pixivv.screen.walkthrough.models.button.ButtonAction
-import io.anygogin31.pixivv.screen.walkthrough.models.button.OpenBrowser
-import io.anygogin31.pixivv.screen.walkthrough.models.button.Transparent
-import io.anygogin31.pixivv.screen.walkthrough.models.page.WalkthroughPage
-import io.anygogin31.pixivv.screen.walkthrough.models.page.WalkthroughPageId
+import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageId
+import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageNode
 
 // TODO: https://app-api.pixiv.net/web/v1/provisional-accounts/create
 private const val PIXIV_ACCOUNT_CREATE_URL: String = ""
@@ -52,22 +50,19 @@ private const val PIXIV_ACCOUNT_CREATE_URL: String = ""
 // TODO: https://app-api.pixiv.net/web/v1/login
 private const val PIXIV_ACCOUNT_LOGIN_URL: String = ""
 
-internal data object AuthorizationPage : WalkthroughPage {
+internal data object AuthorizationPage : WalkthroughPageNode {
     override val id: WalkthroughPageId = WalkthroughPageId(4)
-    override val title: String = "Authorization"
-    override val description: String? = null
-    public val buttons: List<Button> =
-        listOf(
-            Button("Login", OpenBrowser(PIXIV_ACCOUNT_CREATE_URL)),
-            Button("Don't have an account?", OpenBrowser(PIXIV_ACCOUNT_LOGIN_URL), Transparent),
-        )
+    override val next: WalkthroughPageNode? = null
+    override var isUnlocked: Boolean = false
+
+    @Composable
+    override fun Content() {
+        AuthorizationPageContent()
+    }
 }
 
 @Composable
-internal fun AuthorizationPageContent(
-    data: AuthorizationPage,
-    modifier: Modifier = Modifier,
-) {
+private fun AuthorizationPageContent(modifier: Modifier = Modifier) {
     val uriLauncher: UriLauncher = LocalUriLauncher.current
     Column(
         modifier = modifier.fillMaxSize(),
@@ -75,7 +70,7 @@ internal fun AuthorizationPageContent(
         verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.CenterVertically),
     ) {
         Text(
-            text = data.title,
+            text = "Authorization",
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
@@ -85,16 +80,26 @@ internal fun AuthorizationPageContent(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            data.buttons.forEach { button: Button ->
-                ActionButton(
-                    button = button,
-                    modifier = Modifier.fillMaxWidth(0.75f),
-                    onAction = { action: ButtonAction ->
-                        if (action is OpenBrowser) {
-                            uriLauncher.openUriCustomTabs(action.url)
-                        }
-                    },
-                )
+            Button(
+                onClick = {
+                    uriLauncher.openUriCustomTabs(PIXIV_ACCOUNT_LOGIN_URL)
+                },
+                modifier = Modifier.fillMaxWidth(0.75f),
+            ) {
+                Text(text = "Login")
+            }
+
+            Button(
+                onClick = {
+                    uriLauncher.openUriCustomTabs(PIXIV_ACCOUNT_CREATE_URL)
+                },
+                modifier = Modifier.fillMaxWidth(0.75f),
+                colors =
+                    ButtonDefaults.buttonColors(
+                        containerColor = Color.Transparent,
+                    ),
+            ) {
+                Text(text = "Don't have an account?")
             }
         }
     }

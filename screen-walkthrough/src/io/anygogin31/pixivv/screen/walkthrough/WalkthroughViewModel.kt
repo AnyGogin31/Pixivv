@@ -28,11 +28,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.anygogin31.pixivv.domain.models.WalkthroughModel
 import io.anygogin31.pixivv.domain.usecases.GetWalkthroughIllustsUseCase
-import io.anygogin31.pixivv.screen.walkthrough.models.page.WalkthroughPage
-import io.anygogin31.pixivv.screen.walkthrough.pages.AuthorizationPage
-import io.anygogin31.pixivv.screen.walkthrough.pages.ClientPolicyPage
-import io.anygogin31.pixivv.screen.walkthrough.pages.ServicePolicyPage
-import io.anygogin31.pixivv.screen.walkthrough.pages.WelcomePage
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -59,29 +54,7 @@ public class WalkthroughViewModel(
 
     private fun loadState() {
         viewModelScope.launch {
-            async { loadPages() }
             async { loadWalkthroughIllust() }
-        }
-    }
-
-    private fun loadPages() {
-        viewModelScope.launch {
-            _state.update {
-                it.copy(
-                    pages =
-                        listOf(
-                            WelcomePage,
-                            ServicePolicyPage,
-                            ClientPolicyPage,
-                            AuthorizationPage,
-                        ),
-                    unlockedPages =
-                        setOf(
-                            WelcomePage,
-                            ServicePolicyPage,
-                        ),
-                )
-            }
         }
     }
 
@@ -95,24 +68,6 @@ public class WalkthroughViewModel(
                         )
                     }
                 }
-        }
-    }
-
-    private fun unlockPage(page: WalkthroughPage) {
-        viewModelScope.launch {
-            _state.update {
-                it.copy(
-                    unlockedPages = it.unlockedPages + page,
-                )
-            }
-        }
-    }
-
-    public fun onAction(action: WalkthroughAction) {
-        viewModelScope.launch {
-            when (action) {
-                is WalkthroughAction.UnlockPage -> unlockPage(action.page)
-            }
         }
     }
 }
