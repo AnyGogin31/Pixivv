@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.sp
 import io.anygogin31.pixivv.core.remote.constants.PIXIV_SERVICE_POLICY_URL
 import io.anygogin31.pixivv.feature.uri.LocalUriLauncher
 import io.anygogin31.pixivv.feature.uri.UriLauncher
+import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageAction
 import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageId
 import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageNode
 import io.anygogin31.pixivv.screen.walkthrough.pages.client.ClientPolicyPage
@@ -53,8 +54,13 @@ internal data object ServicePolicyPage : WalkthroughPageNode {
         set(_) = Unit
 
     @Composable
-    override fun Content() {
-        ServicePolicyPageContent()
+    override fun Content(onAction: (action: WalkthroughPageAction) -> Unit) {
+        ServicePolicyPageContent(
+            onAgree = {
+                next.isUnlocked = true
+                onAction(WalkthroughPageAction.NextPage)
+            },
+        )
     }
 }
 

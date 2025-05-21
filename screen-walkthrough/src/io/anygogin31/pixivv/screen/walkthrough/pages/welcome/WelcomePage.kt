@@ -35,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageAction
 import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageId
 import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageNode
 import io.anygogin31.pixivv.screen.walkthrough.pages.service.ServicePolicyPage
@@ -46,7 +47,7 @@ internal data object WelcomePage : WalkthroughPageNode {
         set(_) = Unit
 
     @Composable
-    override fun Content() {
+    override fun Content(onAction: (action: WalkthroughPageAction) -> Unit) {
         WelcomePageContent()
     }
 }

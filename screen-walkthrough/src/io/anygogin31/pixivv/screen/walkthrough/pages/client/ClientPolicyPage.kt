@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.sp
 import io.anygogin31.pixivv.core.remote.constants.PIXIVV_CLIENT_POLICY_URL
 import io.anygogin31.pixivv.feature.uri.LocalUriLauncher
 import io.anygogin31.pixivv.feature.uri.UriLauncher
+import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageAction
 import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageId
 import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageNode
 import io.anygogin31.pixivv.screen.walkthrough.pages.auth.AuthorizationPage
@@ -52,8 +53,13 @@ internal data object ClientPolicyPage : WalkthroughPageNode {
     override var isUnlocked: Boolean = false
 
     @Composable
-    override fun Content() {
-        ClientPolicyPageContent()
+    override fun Content(onAction: (action: WalkthroughPageAction) -> Unit) {
+        ClientPolicyPageContent(
+            onAgree = {
+                next.isUnlocked = true
+                onAction(WalkthroughPageAction.NextPage)
+            },
+        )
     }
 }
 

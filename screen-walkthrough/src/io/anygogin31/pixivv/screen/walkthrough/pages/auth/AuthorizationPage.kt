@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.anygogin31.pixivv.feature.uri.LocalUriLauncher
 import io.anygogin31.pixivv.feature.uri.UriLauncher
+import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageAction
 import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageId
 import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageNode
 
@@ -56,7 +57,7 @@ internal data object AuthorizationPage : WalkthroughPageNode {
     override var isUnlocked: Boolean = false
 
     @Composable
-    override fun Content() {
+    override fun Content(onAction: (action: WalkthroughPageAction) -> Unit) {
         AuthorizationPageContent()
     }
 }

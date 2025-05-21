@@ -24,13 +24,6 @@
 
 package io.anygogin31.pixivv.screen.walkthrough.pages
 
-import androidx.compose.runtime.Composable
-
-public interface WalkthroughPageNode {
-    public val id: WalkthroughPageId
-    public val next: WalkthroughPageNode?
-    public var isUnlocked: Boolean
-
-    @Composable
-    public fun Content(onAction: (action: WalkthroughPageAction) -> Unit)
+public sealed interface WalkthroughPageAction {
+    public data object NextPage : WalkthroughPageAction
 }
