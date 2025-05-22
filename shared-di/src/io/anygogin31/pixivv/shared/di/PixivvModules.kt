@@ -30,6 +30,7 @@ import io.anygogin31.pixivv.core.theme.di.CoreThemeModule
 import io.anygogin31.pixivv.data.di.DataModule
 import io.anygogin31.pixivv.data.remote.di.DataRemoteModule
 import io.anygogin31.pixivv.domain.di.DomainModule
+import io.anygogin31.pixivv.screen.walkthrough.di.ScreenWalkthroughModule
 import org.koin.core.module.Module
 
 public val PixivvModules: List<Module> =
@@ -40,4 +41,5 @@ public val PixivvModules: List<Module> =
         DataModule,
         DataRemoteModule,
         DomainModule,
+        ScreenWalkthroughModule,
     )

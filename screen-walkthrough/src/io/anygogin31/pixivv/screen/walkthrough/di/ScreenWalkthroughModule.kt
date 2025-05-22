@@ -22,9 +22,14 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.screen.walkthrough.models.page
+package io.anygogin31.pixivv.screen.walkthrough.di
 
-import kotlin.jvm.JvmInline
+import io.anygogin31.pixivv.screen.walkthrough.WalkthroughViewModel
+import org.koin.core.module.Module
+import org.koin.core.module.dsl.viewModelOf
+import org.koin.dsl.module
 
-@JvmInline
-public value class WalkthroughPageId(public val value: Int)
+public val ScreenWalkthroughModule: Module =
+    module {
+        viewModelOf(::WalkthroughViewModel)
+    }

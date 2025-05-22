@@ -22,14 +22,20 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.screen.walkthrough.pages
+package io.anygogin31.pixivv.screen.walkthrough.pages.locked
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -38,35 +44,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.anygogin31.pixivv.core.remote.constants.PIXIVV_CLIENT_POLICY_URL
-import io.anygogin31.pixivv.feature.uri.LocalUriLauncher
-import io.anygogin31.pixivv.feature.uri.UriLauncher
-import io.anygogin31.pixivv.screen.walkthrough.components.ActionButton
-import io.anygogin31.pixivv.screen.walkthrough.models.button.Agree
-import io.anygogin31.pixivv.screen.walkthrough.models.button.Button
-import io.anygogin31.pixivv.screen.walkthrough.models.button.ButtonAction
-import io.anygogin31.pixivv.screen.walkthrough.models.button.OpenBrowser
-import io.anygogin31.pixivv.screen.walkthrough.models.page.WalkthroughPage
-import io.anygogin31.pixivv.screen.walkthrough.models.page.WalkthroughPageId
-
-internal data object ClientPolicyPage : WalkthroughPage {
-    override val id: WalkthroughPageId = WalkthroughPageId(3)
-    override val title: String = "Client Privacy Policy"
-    override val description: String = "Your privacy matters. We do not collect, store, or share any personal data"
-    public val buttons: List<Button> =
-        listOf(
-            Button("Read", OpenBrowser(PIXIVV_CLIENT_POLICY_URL)),
-            Button("I Agree", Agree),
-        )
-}
 
 @Composable
-internal fun ClientPolicyPageContent(
-    data: ClientPolicyPage,
+internal fun LockedPageContent(
     modifier: Modifier = Modifier,
-    onAgree: () -> Unit = {},
+    onBack: () -> Unit = {},
 ) {
-    val uriLauncher: UriLauncher = LocalUriLauncher.current
     Box(
         modifier = modifier.fillMaxSize(),
     ) {
@@ -75,39 +58,38 @@ internal fun ClientPolicyPageContent(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
         ) {
+            Icon(
+                imageVector = Icons.Default.Lock,
+                contentDescription = null,
+                modifier = Modifier.size(64.dp),
+                tint = MaterialTheme.colorScheme.primary,
+            )
+
             Text(
-                text = data.title,
+                text = "Locked Content",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
             )
 
             Text(
-                text = data.description,
+                text = "Please complete previous steps to unlock this content",
                 fontSize = 16.sp,
                 textAlign = TextAlign.Center,
             )
         }
 
-        Row(
+        Box(
             modifier =
                 Modifier
                     .padding(horizontal = 16.dp)
                     .align(Alignment.BottomCenter),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            data.buttons.forEach { button: Button ->
-                ActionButton(
-                    button = button,
-                    modifier = Modifier.weight(1f),
-                    onAction = { action: ButtonAction ->
-                        when (action) {
-                            is Agree -> onAgree()
-                            is OpenBrowser -> uriLauncher.openUriCustomTabs(action.url)
-                            else -> Unit
-                        }
-                    },
-                )
+            Button(
+                onClick = onBack,
+                modifier = Modifier.fillMaxWidth(0.5f),
+            ) {
+                Text(text = "Back")
             }
         }
     }

@@ -4,6 +4,8 @@ product:
 
 dependencies:
   - ../core-remote-constants
+  - ../core-usecase
+  - ../domain
   - ../feature-pager
   - ../feature-uri
   - $compose.foundation
@@ -11,6 +13,9 @@ dependencies:
   - $compose.runtime
   - $libs.androidx.lifecycle.viewmodel
   - $libs.androidx.lifecycle.runtime
+  - $libs.coil.compose
+  - $libs.koin.compose.viewmodel
+  - $libs.koin.core
   - $libs.kotlinx.coroutines.core
 
 settings:

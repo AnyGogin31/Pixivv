@@ -22,19 +22,15 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.screen.walkthrough.pages
+package io.anygogin31.pixivv.screen.walkthrough.pages.client
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -43,29 +39,36 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.anygogin31.pixivv.screen.walkthrough.components.ActionButton
-import io.anygogin31.pixivv.screen.walkthrough.models.button.Back
-import io.anygogin31.pixivv.screen.walkthrough.models.button.Button
-import io.anygogin31.pixivv.screen.walkthrough.models.button.ButtonAction
-import io.anygogin31.pixivv.screen.walkthrough.models.page.WalkthroughPage
-import io.anygogin31.pixivv.screen.walkthrough.models.page.WalkthroughPageId
+import io.anygogin31.pixivv.core.remote.constants.PIXIVV_CLIENT_POLICY_URL
+import io.anygogin31.pixivv.feature.uri.LocalUriLauncher
+import io.anygogin31.pixivv.feature.uri.UriLauncher
+import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageAction
+import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageId
+import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageNode
+import io.anygogin31.pixivv.screen.walkthrough.pages.auth.AuthorizationPage
 
-internal data object LockedPage : WalkthroughPage {
-    override val id: WalkthroughPageId = WalkthroughPageId(0)
-    override val title: String = "Locked Content"
-    override val description: String = "Please complete previous steps to unlock this content"
-    public val buttons: List<Button> =
-        listOf(
-            Button("Back", Back),
+internal data object ClientPolicyPage : WalkthroughPageNode {
+    override val id: WalkthroughPageId = WalkthroughPageId(3)
+    override val next: WalkthroughPageNode = AuthorizationPage
+    override var isUnlocked: Boolean = false
+
+    @Composable
+    override fun Content(onAction: (action: WalkthroughPageAction) -> Unit) {
+        ClientPolicyPageContent(
+            onAgree = {
+                next.isUnlocked = true
+                onAction(WalkthroughPageAction.NextPage)
+            },
         )
+    }
 }
 
 @Composable
-internal fun LockedPageContent(
-    data: LockedPage,
+private fun ClientPolicyPageContent(
     modifier: Modifier = Modifier,
-    onBack: () -> Unit = {},
+    onAgree: () -> Unit = {},
 ) {
+    val uriLauncher: UriLauncher = LocalUriLauncher.current
     Box(
         modifier = modifier.fillMaxSize(),
     ) {
@@ -74,43 +77,41 @@ internal fun LockedPageContent(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
         ) {
-            Icon(
-                imageVector = Icons.Default.Lock,
-                contentDescription = null,
-                modifier = Modifier.size(64.dp),
-                tint = MaterialTheme.colorScheme.primary,
-            )
-
             Text(
-                text = data.title,
+                text = "Client Privacy Policy",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
             )
 
             Text(
-                text = data.description,
+                text = "Your privacy matters. We do not collect, store, or share any personal data",
                 fontSize = 16.sp,
                 textAlign = TextAlign.Center,
             )
         }
 
-        Box(
+        Row(
             modifier =
                 Modifier
                     .padding(horizontal = 16.dp)
                     .align(Alignment.BottomCenter),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            data.buttons.forEach { button: Button ->
-                ActionButton(
-                    button = button,
-                    modifier = Modifier.fillMaxWidth(0.5f),
-                    onAction = { action: ButtonAction ->
-                        if (action is Back) {
-                            onBack()
-                        }
-                    },
-                )
+            Button(
+                onClick = {
+                    uriLauncher.openUriCustomTabs(PIXIVV_CLIENT_POLICY_URL)
+                },
+                modifier = Modifier.weight(1f),
+            ) {
+                Text(text = "Read")
+            }
+
+            Button(
+                onClick = onAgree,
+                modifier = Modifier.weight(1f),
+            ) {
+                Text(text = "I Agree")
             }
         }
     }

@@ -24,9 +24,11 @@
 
 package io.anygogin31.pixivv.screen.walkthrough
 
-import io.anygogin31.pixivv.screen.walkthrough.models.page.WalkthroughPage
+import io.anygogin31.pixivv.domain.models.IllustModel
+import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageNode
+import io.anygogin31.pixivv.screen.walkthrough.pages.welcome.WelcomePage
 
 public data class WalkthroughState(
-    public val pages: List<WalkthroughPage> = emptyList(),
-    public val unlockedPages: Set<WalkthroughPage> = emptySet(),
+    public val pages: WalkthroughPageNode = WelcomePage,
+    public val walkthroughIllust: List<IllustModel> = emptyList(),
 )

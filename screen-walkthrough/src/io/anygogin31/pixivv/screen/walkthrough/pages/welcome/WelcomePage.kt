@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.screen.walkthrough.pages
+package io.anygogin31.pixivv.screen.walkthrough.pages.welcome
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -35,34 +35,39 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.anygogin31.pixivv.screen.walkthrough.models.page.WalkthroughPage
-import io.anygogin31.pixivv.screen.walkthrough.models.page.WalkthroughPageId
+import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageAction
+import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageId
+import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageNode
+import io.anygogin31.pixivv.screen.walkthrough.pages.service.ServicePolicyPage
 
-internal data object WelcomePage : WalkthroughPage {
+internal data object WelcomePage : WalkthroughPageNode {
     override val id: WalkthroughPageId = WalkthroughPageId(1)
-    override val title: String = "Pixivv"
-    override val description: String = "Welcome to a third-party client for Pixiv"
+    override val next: WalkthroughPageNode = ServicePolicyPage
+    override var isUnlocked: Boolean = true
+        set(_) = Unit
+
+    @Composable
+    override fun Content(onAction: (action: WalkthroughPageAction) -> Unit) {
+        WelcomePageContent()
+    }
 }
 
 @Composable
-internal fun WelcomePageContent(
-    data: WelcomePage,
-    modifier: Modifier = Modifier,
-) {
+private fun WelcomePageContent(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
     ) {
         Text(
-            text = data.title,
+            text = "Pixivv",
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
         )
 
         Text(
-            text = data.description,
+            text = "Welcome to a third-party client for Pixiv",
             fontSize = 16.sp,
             textAlign = TextAlign.Center,
         )

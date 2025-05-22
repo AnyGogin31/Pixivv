@@ -22,8 +22,9 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.screen.walkthrough.models.button
+package io.anygogin31.pixivv.screen.walkthrough.pages
 
-public sealed interface ButtonStyle
+import kotlin.jvm.JvmInline
 
-internal data object Transparent : ButtonStyle
+@JvmInline
+public value class WalkthroughPageId(public val value: Int)

@@ -22,42 +22,15 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.screen.walkthrough.components
+package io.anygogin31.pixivv.screen.walkthrough.pages
 
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import io.anygogin31.pixivv.screen.walkthrough.models.button.Button
-import io.anygogin31.pixivv.screen.walkthrough.models.button.ButtonAction
-import io.anygogin31.pixivv.screen.walkthrough.models.button.Transparent
 
-@Composable
-internal fun ActionButton(
-    button: Button,
-    modifier: Modifier = Modifier,
-    onAction: (action: ButtonAction) -> Unit = {},
-) {
-    val colors: ButtonColors =
-        when (button.style) {
-            is Transparent ->
-                ButtonDefaults.buttonColors(
-                    containerColor = Color.Transparent,
-                )
+public interface WalkthroughPageNode {
+    public val id: WalkthroughPageId
+    public val next: WalkthroughPageNode?
+    public var isUnlocked: Boolean
 
-            else -> ButtonDefaults.buttonColors()
-        }
-
-    Button(
-        onClick = {
-            onAction(button.action)
-        },
-        modifier = modifier,
-        colors = colors,
-    ) {
-        Text(text = button.text)
-    }
+    @Composable
+    public fun Content(onAction: (action: WalkthroughPageAction) -> Unit)
 }

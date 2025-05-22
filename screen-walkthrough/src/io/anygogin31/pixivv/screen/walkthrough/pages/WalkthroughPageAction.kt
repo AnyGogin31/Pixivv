@@ -22,10 +22,8 @@
  * SOFTWARE.
  */
 
-package io.anygogin31.pixivv.screen.walkthrough.models.button
+package io.anygogin31.pixivv.screen.walkthrough.pages
 
-public data class Button(
-    public val text: String,
-    public val action: ButtonAction,
-    public val style: ButtonStyle? = null,
-)
+public sealed interface WalkthroughPageAction {
+    public data object NextPage : WalkthroughPageAction
+}
