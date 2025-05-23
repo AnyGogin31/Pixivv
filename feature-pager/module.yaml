@@ -2,14 +2,9 @@ product:
   type: lib
   platforms: [ jvm, android, iosArm64, iosSimulatorArm64, iosX64 ]
 
-dependencies:
-  - $compose.foundation
-  - $compose.material3
-  - $compose.runtime
+apply:
+  - ../templates/compose.module-template.yaml
 
 settings:
   android:
     namespace: io.anygogin31.pixivv.feature.pager
-  compose:
-    version: 1.6.10
-    enabled: true

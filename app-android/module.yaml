@@ -1,5 +1,8 @@
 product: android/app
 
+apply:
+  - ../templates/compose.module-template.yaml
+
 dependencies:
   - ../shared-app
   - $libs.androidx.activity.compose
@@ -8,6 +11,3 @@ dependencies:
 settings:
   android:
     namespace: io.anygogin31.pixivv
-  compose:
-    version: 1.6.10
-    enabled: true

@@ -1,11 +1,9 @@
 product: jvm/app
 
+apply:
+  - ../templates/compose.module-template.yaml
+
 dependencies:
   - ../shared-app
   - $compose.desktop.currentOs
   - $libs.kotlinx.coroutines.swing
-
-settings:
-  compose:
-    version: 1.6.10
-    enabled: true

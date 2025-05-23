@@ -2,12 +2,14 @@ product:
   type: lib
   platforms: [ jvm, android, iosArm64, iosSimulatorArm64, iosX64 ]
 
+apply:
+  - ../templates/compose.module-template.yaml
+
 dependencies:
   - ../core-image-loader
   - ../core-theme
   - ../feature-desingsystem
   - ../shared-di
-  - $compose.runtime
   - $libs.koin.core
 
 dependencies@android:
@@ -26,6 +28,3 @@ dependencies@ios:
 settings:
   android:
     namespace: io.anygogin31.pixivv.shared.setup
-  compose:
-    version: 1.6.10
-    enabled: true
