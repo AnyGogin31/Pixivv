@@ -1,0 +1,33 @@
+modules:
+  - app-android
+  - app-ios
+  - app-jvm
+
+  - core-image-loader
+  - core-remote-auth
+  - core-remote-brotli
+  - core-remote-configs
+  - core-remote-client
+  - core-remote-constants
+  - core-remote-engine
+  - core-remote-plugins
+  - core-remote-utils
+  - core-storage
+  - core-theme
+  - core-usecase
+
+  - data
+  - data-remote
+  - domain
+
+  - feature-desingsystem
+  - feature-navigationsuite
+  - feature-pager
+  - feature-pane
+  - feature-uri
+
+  - screen-walkthrough
+
+  - shared-app
+  - shared-di
+  - shared-setup
