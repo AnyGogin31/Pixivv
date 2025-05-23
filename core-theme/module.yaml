@@ -2,13 +2,12 @@ product:
   type: lib
   platforms: [ jvm, android, iosArm64, iosSimulatorArm64, iosX64 ]
 
+apply:
+  - ../templates/compose.module-template.yaml
+
 dependencies:
-  - $compose.material3
   - $libs.koin.core
 
 settings:
   android:
     namespace: io.anygogin31.pixivv.core.theme
-  compose:
-    version: 1.6.10
-    enabled: true

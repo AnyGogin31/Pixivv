@@ -1,0 +1,8 @@
+dependencies:
+  - $compose.foundation
+  - $compose.material3
+  - $compose.runtime
+  - $libs.compose.icons.core
+
+settings:
+  compose: enabled

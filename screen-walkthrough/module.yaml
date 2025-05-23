@@ -2,15 +2,15 @@ product:
   type: lib
   platforms: [ jvm, android, iosArm64, iosSimulatorArm64, iosX64 ]
 
+apply:
+  - ../templates/compose.module-template.yaml
+
 dependencies:
   - ../core-remote-constants
   - ../core-usecase
   - ../domain
   - ../feature-pager
   - ../feature-uri
-  - $compose.foundation
-  - $compose.material3
-  - $compose.runtime
   - $libs.androidx.lifecycle.viewmodel
   - $libs.androidx.lifecycle.runtime
   - $libs.coil.compose
@@ -21,6 +21,3 @@ dependencies:
 settings:
   android:
     namespace: io.anygogin31.pixivv.screen.walkthrough
-  compose:
-    version: 1.6.10
-    enabled: true

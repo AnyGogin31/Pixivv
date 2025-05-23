@@ -1,11 +1,11 @@
 product: ios/app
 
+apply:
+  - ../templates/compose.module-template.yaml
+
 dependencies:
   - ../shared-app
 
 settings:
-  compose:
-    version: 1.6.10
-    enabled: true
   ios:
     teamId: <team ID here>
