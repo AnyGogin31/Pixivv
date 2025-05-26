@@ -30,4 +30,5 @@ modules:
 
   - shared-app
   - shared-di
+  - shared-resources
   - shared-setup
