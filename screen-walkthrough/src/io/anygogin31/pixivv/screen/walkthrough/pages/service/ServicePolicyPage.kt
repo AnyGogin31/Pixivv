@@ -46,6 +46,12 @@ import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageAction
 import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageId
 import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageNode
 import io.anygogin31.pixivv.screen.walkthrough.pages.client.ClientPolicyPage
+import io.anygogin31.pixivv.shared.resources.Res
+import io.anygogin31.pixivv.shared.resources.agree_button
+import io.anygogin31.pixivv.shared.resources.read_button
+import io.anygogin31.pixivv.shared.resources.service_policy_message
+import io.anygogin31.pixivv.shared.resources.service_policy_title
+import org.jetbrains.compose.resources.stringResource
 
 internal data object ServicePolicyPage : WalkthroughPageNode {
     override val id: WalkthroughPageId = WalkthroughPageId(2)
@@ -79,14 +85,14 @@ private fun ServicePolicyPageContent(
             verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
         ) {
             Text(
-                text = "Privacy Policy",
+                text = stringResource(Res.string.service_policy_title),
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
             )
 
             Text(
-                text = "Before using the Pixiv service, please review their privacy policy",
+                text = stringResource(Res.string.service_policy_message),
                 fontSize = 16.sp,
                 textAlign = TextAlign.Center,
             )
@@ -105,14 +111,14 @@ private fun ServicePolicyPageContent(
                 },
                 modifier = Modifier.weight(1f),
             ) {
-                Text(text = "Read")
+                Text(text = stringResource(Res.string.read_button))
             }
 
             Button(
                 onClick = onAgree,
                 modifier = Modifier.weight(1f),
             ) {
-                Text(text = "I Agree")
+                Text(text = stringResource(Res.string.agree_button))
             }
         }
     }

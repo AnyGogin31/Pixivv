@@ -39,6 +39,10 @@ import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageAction
 import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageId
 import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageNode
 import io.anygogin31.pixivv.screen.walkthrough.pages.service.ServicePolicyPage
+import io.anygogin31.pixivv.shared.resources.Res
+import io.anygogin31.pixivv.shared.resources.app_name
+import io.anygogin31.pixivv.shared.resources.welcome_message
+import org.jetbrains.compose.resources.stringResource
 
 internal data object WelcomePage : WalkthroughPageNode {
     override val id: WalkthroughPageId = WalkthroughPageId(1)
@@ -60,14 +64,14 @@ private fun WelcomePageContent(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
     ) {
         Text(
-            text = "Pixivv",
+            text = stringResource(Res.string.app_name),
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
         )
 
         Text(
-            text = "Welcome to a third-party client for Pixiv",
+            text = stringResource(Res.string.welcome_message),
             fontSize = 16.sp,
             textAlign = TextAlign.Center,
         )

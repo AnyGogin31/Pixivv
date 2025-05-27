@@ -24,5 +24,28 @@
   -->
 
 <resources>
+
     <string name="app_name" translatable="false">Pixivv</string>
+
+    <!-- Welcome Page -->
+    <string name="welcome_message">Welcome to a third-party client for Pixiv</string>
+
+    <!-- Service Policy Page -->
+    <string name="service_policy_title">Service Privacy Policy</string>
+    <string name="service_policy_message">Before using the Pixiv service, please review their privacy policy</string>
+
+    <!-- Client Policy Page -->
+    <string name="client_policy_title">Client Privacy Policy</string>
+    <string name="client_policy_message">Your privacy matters. We do not collect, store, or share any personal data</string>
+
+    <!-- Authorization Page -->
+    <string name="authorization_title">Authorization</string>
+
+    <!-- Buttons -->
+    <string name="read_button">Read</string>
+    <string name="agree_button">I Agree</string>
+
+    <string name="login_button">Login</string>
+    <string name="no_account_button">Don\'t have an account?</string>
+
 </resources>

@@ -44,6 +44,11 @@ import io.anygogin31.pixivv.feature.uri.UriLauncher
 import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageAction
 import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageId
 import io.anygogin31.pixivv.screen.walkthrough.pages.WalkthroughPageNode
+import io.anygogin31.pixivv.shared.resources.Res
+import io.anygogin31.pixivv.shared.resources.authorization_title
+import io.anygogin31.pixivv.shared.resources.login_button
+import io.anygogin31.pixivv.shared.resources.no_account_button
+import org.jetbrains.compose.resources.stringResource
 
 // TODO: https://app-api.pixiv.net/web/v1/provisional-accounts/create
 private const val PIXIV_ACCOUNT_CREATE_URL: String = ""
@@ -71,7 +76,7 @@ private fun AuthorizationPageContent(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.CenterVertically),
     ) {
         Text(
-            text = "Authorization",
+            text = stringResource(Res.string.authorization_title),
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
@@ -87,7 +92,7 @@ private fun AuthorizationPageContent(modifier: Modifier = Modifier) {
                 },
                 modifier = Modifier.fillMaxWidth(0.75f),
             ) {
-                Text(text = "Login")
+                Text(text = stringResource(Res.string.login_button))
             }
 
             Button(
@@ -100,7 +105,7 @@ private fun AuthorizationPageContent(modifier: Modifier = Modifier) {
                         containerColor = Color.Transparent,
                     ),
             ) {
-                Text(text = "Don't have an account?")
+                Text(text = stringResource(Res.string.no_account_button))
             }
         }
     }
