@@ -27,11 +27,15 @@ package io.anygogin31.pixivv
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import io.anygogin31.pixivv.shared.app.App
+import io.anygogin31.pixivv.shared.resources.Res
+import io.anygogin31.pixivv.shared.resources.app_name
+import org.jetbrains.compose.resources.stringResource
 
 public fun main() {
     application {
         Window(
             onCloseRequest = ::exitApplication,
+            title = stringResource(Res.string.app_name),
         ) {
             App()
         }

@@ -11,6 +11,7 @@ dependencies:
   - ../domain
   - ../feature-pager
   - ../feature-uri
+  - ../shared-resources
   - $libs.androidx.lifecycle.viewmodel
   - $libs.androidx.lifecycle.runtime
   - $libs.coil.compose
