@@ -4,6 +4,7 @@ modules:
   - app-jvm
 
   - core-image-loader
+  - core-oauth2
   - core-remote-auth
   - core-remote-brotli
   - core-remote-configs
